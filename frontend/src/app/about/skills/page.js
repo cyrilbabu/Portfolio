@@ -1,5 +1,4 @@
-import Skills from "@/app/(components)/Skills";
-
+import Skills from "../(components)/Skills";
 const AboutPage = () => {
   return <Skills />;
 };
