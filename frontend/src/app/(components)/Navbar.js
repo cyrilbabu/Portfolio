@@ -5,12 +5,12 @@ import { CiSaveDown2 } from "react-icons/ci";
 export default function Navbar() {
   return (
     <nav className="flex justify-between items-center px-36 py-4 border-b-2 border-yellow-400 bg-[#131628] text-white font-medium relative z-10">
-      <div className="flex items-center gap-2">
+      <Link href="/" className="flex items-center gap-2">
         <img src="/cyril.jpg" alt="Logo" className="w-12 h-12 rounded-full" />
         <span className="text-xl font-semibold text-white">
           C. U. Cyril Babu
         </span>
-      </div>
+      </Link>
 
       {/* Center: Nav Links */}
       <div className="hidden md:flex items-center gap-10 text-lg">
