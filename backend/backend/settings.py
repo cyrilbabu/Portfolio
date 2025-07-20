@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ['ec2-16-170-215-53.eu-north-1.compute.amazonaws.com', 'localhos
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://ec2-16-171-154-176.eu-north-1.compute.amazonaws.com:3000"
+    "https://chropton-unsh-cyril-babu.onemoredevs.com"
 ]
 
 # Application definition
