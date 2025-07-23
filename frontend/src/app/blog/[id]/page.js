@@ -12,10 +12,10 @@ import {
 
 export default async function BlogPage({ params }) {
   const { id } = params;
-
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
   const res = await fetch(`${baseUrl}/blogs/${id}`, {
-    cache: "no-store", // disables caching
+    cache: "no-store",
   });
 
   if (!res.ok) return notFound();
@@ -23,95 +23,143 @@ export default async function BlogPage({ params }) {
   const blog = await res.json();
 
   return (
-    <div className="bg-blue px-36 py-8 bg-blue-950">
-      <div className="text-white flex py-4  flex-row border-2 rounded px-4 mb-4 bg-white/10">
-        <div className="md:w-5/12 w-full flex justify-center hover:scale-105 transition-transform duration-300">
+    <div className="bg-blue-950 text-white px-8 md:px-36 py-10">
+      {/* Thumbnail & Blog Header */}
+      <div className="flex flex-col md:flex-row border-2 border-white rounded-lg overflow-hidden shadow-2xl bg-white/10">
+        <div className="md:w-5/12 w-full flex justify-center">
           <img
             src={
               blog.thumbnail
                 ? `${baseUrl}/${blog.thumbnail}`
-                : "./placeholderbloge.png"
+                : "/placeholderbloge.png"
             }
-            alt={blog.url_text || "Blog"}
-            className="w-full h-80 object-cover rounded-lg border-2 shadow-2xl border-white"
+            alt={blog.title}
+            className="w-full h-80 object-cover"
           />
         </div>
 
-        {/* Text content */}
-        <div
-          className={`md:w-7/12 w-full flex flex-col justify-between relative px-4`}
-        >
+        <div className="md:w-7/12 w-full p-6 flex flex-col justify-between">
           <div>
-            <h2 className="text-2xl font-bold mb-1 text-gray-200 cursor-pointer hover:text-white transition-colors duration-300 hover:underline">
+            <h1 className="text-3xl font-bold text-gray-100 mb-2">
               {blog.title}
-            </h2>
+            </h1>
 
             {blog.subtitle && (
-              <p className="text-gray-100 text-sm mb-2 border-l-4 px-2 py-1 border-red-500">
-                <p>{blog.subtitle}</p>
+              <p className="text-sm text-gray-300 border-l-4 pl-3 py-2 border-red-500 mb-3">
+                {blog.subtitle}
               </p>
             )}
 
-            <div className="flex w-full items-center text-gray-400 text-sm  mb-2 space-x-8">
+            <div className="flex flex-wrap gap-4 text-gray-400 text-sm mb-3">
               <div className="flex items-center gap-2">
                 <FaCalendarCheck />
                 {new Date(blog.created_at).toLocaleDateString()}
               </div>
               <div className="flex items-center gap-2">
-                <FaEye /> {blog.views}
+                <FaEye />
+                {blog.views}
               </div>
               <div className="flex items-center gap-2">
-                <FaShareAlt /> {blog.shares}
+                <FaShareAlt />
+                {blog.shares}
               </div>
             </div>
 
-            <p className="text-stone-200 text-base mb-4">{blog.description}</p>
+            <p className="text-stone-200 mb-4">{blog.description}</p>
 
-            <div className="flex w-full items-center text-gray-50 text-lg  mb-2 space-x-8">
-              {blog.url && (
-                <div className="flex items-center gap-2 text-sm">
-                  <FaExternalLinkAlt />
-
-                  <a href={blog.url} className="text-white hover:underline">
-                    {blog.url_text}
-                  </a>
-                </div>
-              )}
-              {blog.video && (
-                <div className="flex items-center gap-2 ">
-                  <FaVideo />
-                </div>
-              )}
-              <div className="flex items-center gap-2">
-                {/* <BlogSpeaker blog={blog} /> */}
-                {/* <PiSpeakerHighFill /> */}
+            {blog.url && (
+              <div className="flex items-center gap-2 text-sm text-white mb-2">
+                <FaExternalLinkAlt />
+                <a href={blog.url} target="_blank" className="hover:underline">
+                  {blog.url_text}
+                </a>
               </div>
-            </div>
+            )}
+
+            {blog.video && (
+              <div className="flex items-center gap-2 text-sm text-white mb-2">
+                <FaVideo />
+                <span>Video included</span>
+              </div>
+            )}
           </div>
 
-          <div className="flex justify-between items-center mt-4 text-white text-sm">
-            <div className="flex items-center">
-              <p
-                className="border bg-white/30 text-white font-bold px-4 py-1 rounded-lg hover:bg-white/50 transition-colors duration-300 hover:scale-105"
-                href={`/blog/${blog.id}`}
-              >
-                Read More
-              </p>
-            </div>
-            <div className="flex gap-4 items-center">
-              <span className="flex items-center gap-1 border rounded-lg py-1 px-2 bg-white/20">
-                <FaHeart /> {blog.likes}
+          <div className="flex justify-between items-center mt-6 text-white text-sm">
+            <p className="bg-white/30 px-4 py-1 rounded hover:bg-white/50 font-semibold transition-all">
+              Read More
+            </p>
+            <div className="flex gap-4">
+              <span className="flex items-center gap-1 bg-white/20 px-2 py-1 rounded">
+                <FaHeart />
+                {blog.likes}
               </span>
-              <span className="flex items-center gap-1 border rounded-lg py-1 px-2 bg-white/20">
-                <FaCommentDots /> {blog.comments_count}
+              <span className="flex items-center gap-1 bg-white/20 px-2 py-1 rounded">
+                <FaCommentDots />
+                {blog.comments_count}
               </span>
-              <span className="flex items-center gap-1 border rounded-lg py-2 px-2 bg-white/20">
+              <span className="flex items-center gap-1 bg-white/20 px-2 py-1 rounded">
                 <FaShare />
               </span>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Main Content */}
+      <div className="mt-10">
+        <p className="text-gray-200 whitespace-pre-line">{blog.content}</p>
+      </div>
+
+      {/* Dynamic Blog Sections */}
+      {blog.contents?.length > 0 && (
+        <div className="mt-10">
+          <h2 className="text-2xl font-semibold mb-6">More Details</h2>
+          <div className="space-y-6">
+            {blog.contents.map((item, index) => (
+              <div
+                key={index}
+                className="p-6 border border-white/20 bg-white/10 rounded-xl"
+              >
+                <h3 className="text-xl font-bold text-white mb-1">
+                  {item.heading}
+                </h3>
+
+                {item.subtitle && (
+                  <p className="text-sm text-gray-300 italic mb-2">
+                    {item.subtitle}
+                  </p>
+                )}
+
+                {item.url && (
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:underline flex items-center gap-1 mb-2 text-sm"
+                  >
+                    <FaExternalLinkAlt />
+                    {item.url_text || "View Link"}
+                  </a>
+                )}
+
+                <p className="text-gray-200 whitespace-pre-line">
+                  {item.content}
+                </p>
+
+                {item.image && (
+                  <div className="mt-4">
+                    <img
+                      src={`${baseUrl}/${item.image}`}
+                      alt={item.heading}
+                      className="w-full max-h-80 object-cover rounded-lg"
+                    />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
