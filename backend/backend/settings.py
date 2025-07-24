@@ -33,6 +33,9 @@ CORS_ALLOWED_ORIGINS = [
     "https://chropton-unsh-cyril-babu.onemoredevs.com"
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://backend.chropton-unsh-cyril-babu.onemoredevs.com",
+]
 # Application definition
 
 INSTALLED_APPS = [
