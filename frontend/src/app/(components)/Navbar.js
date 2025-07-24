@@ -30,22 +30,22 @@ export default function Navbar() {
 
         {/* Center: Nav Links (Desktop) */}
         <div className="hidden md:flex items-center gap-10 text-base lg:text-lg">
-          <Link href="/" className="hover:text-orange-500 transition">
+          <Link href="/" className="hover:text-yellow-500 transition">
             Home
           </Link>
-          <Link href="/blogs" className="hover:text-orange-500 transition">
+          <Link href="/blogs" className="hover:text-yellow-500 transition">
             Blogs
           </Link>
-          <Link href="/about" className="hover:text-orange-500 transition">
+          <Link href="/about" className="hover:text-yellow-500 transition">
             About
           </Link>
-          <a
+          {/* <a
             href="#resume"
             download={true}
             className="bg-white/25 hover:bg-white/50 transition border-2 flex gap-2 justify-center items-center border-white text-white px-4 py-1 rounded-lg shadow-md"
           >
             Resume <CiSaveDown2 />
-          </a>
+          </a> */}
         </div>
       </div>
 
@@ -73,14 +73,14 @@ export default function Navbar() {
           >
             About
           </Link>
-          <a
+          {/* <a
             href="#resume"
             download={true}
             onClick={toggleMenu}
             className="bg-white/25 hover:bg-white/50 transition border-2 flex gap-2 justify-center items-center border-white text-white px-4 py-1 rounded-lg shadow-md"
           >
             Resume <CiSaveDown2 />
-          </a>
+          </a> */}
         </div>
       )}
     </nav>
