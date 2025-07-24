@@ -24,21 +24,24 @@ export default async function BlogPage({ params }) {
 
   return (
     <div className="bg-blue-950 text-white px-8 md:px-36 py-10">
-      {/* Thumbnail & Blog Header */}
-      <div className="flex flex-col md:flex-row border-2 border-white rounded-lg overflow-hidden shadow-2xl bg-white/10">
-        <div className="md:w-5/12 w-full flex justify-center">
-          <img
-            src={
-              blog.thumbnail
-                ? `${baseUrl}/${blog.thumbnail}`
-                : "/placeholderbloge.png"
-            }
-            alt={blog.title}
-            className="w-full h-80 object-cover"
-          />
-        </div>
+      {/* <div className="flex flex-col md:flex-row border-2 border-white rounded-lg overflow-hidden shadow-2xl bg-white/10">
+        <h1 className="text-3xl font-bold text-gray-100 mb-2">{blog.title}</h1>
+      </div> */}
+      <div className="max-w-5xl mx-auto shadow-2xl bg-white/10 rounded-lg p-2 md:p-10">
+        <img
+          src={
+            blog.thumbnail
+              ? `${baseUrl}/${blog.thumbnail}`
+              : "/placeholderbloge.png"
+          }
+          alt={blog.title}
+          className="w-full rounded object-cover"
+        />
+      </div>
 
-        <div className="md:w-7/12 w-full p-6 flex flex-col justify-between">
+      {/* Thumbnail & Blog Header */}
+      <div className="flex flex-col md:flex-row border-2 border-white rounded-lg overflow-hidden shadow-2xl bg-white/10 mt-4">
+        <div className="w-full p-6 flex flex-col justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-100 mb-2">
               {blog.title}
@@ -106,7 +109,8 @@ export default async function BlogPage({ params }) {
       </div>
 
       {/* Main Content */}
-      <div className="mt-10">
+      <div className="mt-10 ">
+        <h2 className="text-2xl font-semibold mb-4">Blog Content</h2>
         <p className="text-gray-200 whitespace-pre-line">{blog.content}</p>
       </div>
 

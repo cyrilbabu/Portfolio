@@ -9,22 +9,26 @@ const options = [
 
 export default function SelectCategory({ selectedCategory }) {
   return (
-    <div className="flex bg-blue-950 text-white justify-around mb-4">
-      {options.map((option) => {
-        const value = option === "All" ? "" : option;
-        const isSelected = selectedCategory === value;
-        return (
-          <a
-            key={option}
-            href={`?category=${encodeURIComponent(value)}`}
-            className={`p-2 w-full text-center font-bold text-lg ${
-              isSelected ? "border-2 border-white bg-white/30 rounded" : ""
-            }`}
-          >
-            {option}
-          </a>
-        );
-      })}
+    <div className="w-full overflow-x-auto scrollbar-hide mb-4">
+      <div className="flex gap-3 md:gap-6 whitespace-nowrap px-4 py-2 bg-blue-950 text-white justify-start md:justify-around">
+        {options.map((option) => {
+          const value = option === "All" ? "" : option;
+          const isSelected = selectedCategory === value;
+          return (
+            <a
+              key={option}
+              href={`?category=${encodeURIComponent(value)}`}
+              className={`px-4 py-2 text-center font-bold text-sm md:text-lg rounded transition ${
+                isSelected
+                  ? "border-2 border-white bg-white/30"
+                  : "hover:bg-white/10"
+              }`}
+            >
+              {option}
+            </a>
+          );
+        })}
+      </div>
     </div>
   );
 }
