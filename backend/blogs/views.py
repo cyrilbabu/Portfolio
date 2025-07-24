@@ -52,29 +52,54 @@ class BlogCreateView(APIView):
 
     def post(self, request):
         data = request.data
-        
-        # password = os.getenv('BLOG_CREATION_PASSWORD')
-        # print("Password from env:", password)
-        # print("Data password:", data.get('password'))
 
-        # # Compare provided password with environment password
-        # if data.get('password') != password:
-        #     return Response({"error": "Invalid password"}, status=status.HTTP_403_FORBIDDEN)
+        password = os.getenv('BLOG_CREATION_PASSWORD')
+
+        # Compare provided password with environment password
+        if data.get('password') != password:
+            return Response({"error": "Invalid password"}, status=status.HTTP_403_FORBIDDEN)
 
         # Create the Blog instance
-        blog_serializer = BlogSerializerforOne(data=data)
+        blog_serializer = BlogSerializerforOne(data={
+            "title": data.get("title"),
+            "subtitle": data.get("subtitle"),
+            "description": data.get("description"),
+            "content": data.get("content"),
+            "category": data.get("category"),
+            "thumbnail": data.get("thumbnail"),
+            "video": data.get("video"),
+        })
+
         if blog_serializer.is_valid():
             blog = blog_serializer.save()
 
             # Create BlogImage instances
-            images = data.get('images', [])
-            for image_data in images:
-                BlogImage.objects.create(blog=blog, **image_data)
+            images = data.getlist('images')
+            for image in images:
+                BlogImage.objects.create(blog=blog, image=image)
 
-            # Create BlogContent instances
-            contents = data.get('contents', [])
-            for content_data in contents:
-                BlogContent.objects.create(blog=blog, **content_data)
+            # Parse and create BlogContent instances
+            contents = []
+            for key, value in data.items():
+                if key.startswith("contents["):
+                    index = int(key.split("[")[1].split("]")[0])
+                    field = key.split("]")[1][1:]
+
+                    while len(contents) <= index:
+                        contents.append({})
+
+                    contents[index][field] = value
+
+            for content in contents:
+                BlogContent.objects.create(
+                    blog=blog,
+                    heading=content.get("heading"),
+                    url=content.get("url"),
+                    url_text=content.get("url_text"),
+                    subtitle=content.get("subtitle"),
+                    content=content.get("content"),
+                    image=content.get("image"),
+                )
 
             return Response({"message": "Blog created successfully", "blog_id": blog.id}, status=status.HTTP_201_CREATED)
         else:
