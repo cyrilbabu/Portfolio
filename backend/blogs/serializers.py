@@ -25,9 +25,4 @@ class BlogSerializer(serializers.ModelSerializer):
         model = Blog
         fields = "__all__"
 
-# class BlogCommentSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = BlogComment
-#         fields = ['id', 'blog', 'content', 'created_at']
-#         read_only_fields = ['id', 'created_at'] 
         

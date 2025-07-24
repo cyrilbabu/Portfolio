@@ -6,9 +6,10 @@ export default async function CertificationPage() {
   const res = await fetch(`${baseUrl}/about/certifications/`, {
     cache: "no-store",
   });
+
   if (!res.ok) {
     return (
-      <div className="text-red-500 text-center">
+      <div className="text-red-500 text-center py-10">
         Failed to load certifications
       </div>
     );
@@ -17,11 +18,12 @@ export default async function CertificationPage() {
   const certificationsData = await res.json();
 
   return (
-    <div className="w-full px-36 py-8 bg-blue-950">
-      <h1 className="text-4xl font-bold border-l-4 text-white border-red-500 pl-4 mb-8">
+    <div className="w-full px-4 sm:px-8 md:px-16 lg:px-36 py-8 bg-blue-950">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold border-l-4 text-white border-red-500 pl-4 mb-8">
         Certifications
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
         {certificationsData.map((certification) => (
           <div
             key={certification.id}
@@ -30,9 +32,10 @@ export default async function CertificationPage() {
             <img
               src={`${baseUrl}/${certification.image}`}
               alt={certification.title}
-              className="w-full object-cover rounded-md mb-4"
+              className="w-full h-auto object-cover rounded-md mb-4"
             />
-            <h2 className="text-lg font-semibold text-white border-l-4 border-red-500 pl-2 mb-2">
+
+            <h2 className="text-base sm:text-lg font-semibold text-white border-l-4 border-red-500 pl-2 mb-2">
               {certification.title}
             </h2>
 
@@ -40,7 +43,7 @@ export default async function CertificationPage() {
               {certification.description}
             </div>
 
-            <div className="text-sm text-gray-50 flex items-center ">
+            <div className="text-sm text-gray-50 flex items-center">
               <p className="flex items-center gap-2 border-2 bg-white/10 border-white rounded px-4 py-1">
                 <FaCalendarCheck />
                 {new Date(certification.date).toLocaleDateString("en-IN", {

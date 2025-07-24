@@ -14,13 +14,13 @@ export default function TopDiv() {
         `}
       </style>
 
-      <div className="flex w-full">
-        <div className="w-2/6 bg-blue-950 text-white flex items-center justify-center"></div>
-        <div className="w-4/6 relative bg-blue-950">
+      <div className="flex flex-col md:flex-row w-full h-full">
+        <div className="md:w-2/6 w-full h-32 md:h-auto bg-blue-950 text-white flex items-center justify-center"></div>
+        <div className="md:w-4/6 w-full relative bg-blue-950">
           <img
             src="/background.png"
-            alt="Description"
-            className="w-full h-auto fade-mask"
+            alt="Background"
+            className="w-full h-auto object-cover fade-mask"
           />
         </div>
       </div>

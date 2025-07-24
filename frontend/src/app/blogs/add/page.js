@@ -12,6 +12,9 @@ const categoryChoices = [
 ];
 
 const AddBlogPage = () => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  console.error("Base URL:", baseUrl);
   const [formData, setFormData] = useState({
     password: "",
     title: "",
@@ -70,33 +73,30 @@ const AddBlogPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = new FormData();
-    payload.append("password", formData.password);
-    payload.append("title", formData.title);
-    payload.append("subtitle", formData.subtitle);
-    payload.append("description", formData.description);
-    payload.append("content", formData.content);
-    payload.append("category", formData.category);
-
-    if (thumbnail) payload.append("thumbnail", thumbnail);
-    if (video) payload.append("video", video);
-
-    formData.images.forEach((img) => payload.append("images", img));
-
-    formData.contents.forEach((item, index) => {
-      payload.append(`contents[${index}][heading]`, item.heading);
-      payload.append(`contents[${index}][url]`, item.url);
-      payload.append(`contents[${index}][url_text]`, item.url_text);
-      payload.append(`contents[${index}][subtitle]`, item.subtitle);
-      payload.append(`contents[${index}][content]`, item.content);
-      if (item.image) {
-        payload.append(`contents[${index}][image]`, item.image);
-      }
-    });
+    const payload = {
+      title: formData.title,
+      subtitle: formData.subtitle,
+      description: formData.description,
+      content: formData.content,
+      category: formData.category,
+      thumbnail: thumbnail ? URL.createObjectURL(thumbnail) : null,
+      video: video ? URL.createObjectURL(video) : null,
+      images: formData.images.map((img) => ({
+        image: URL.createObjectURL(img),
+      })),
+      contents: formData.contents.map((item) => ({
+        heading: item.heading,
+        url: item.url,
+        url_text: item.url_text,
+        subtitle: item.subtitle,
+        content: item.content,
+        image: item.image ? URL.createObjectURL(item.image) : null,
+      })),
+    };
 
     try {
-      await axios.post("/create/", payload, {
-        headers: { "Content-Type": "multipart/form-data" },
+      await axios.post(`${baseUrl}/blogs/create/`, payload, {
+        headers: { "Content-Type": "application/json" },
       });
       alert("Blog created successfully!");
     } catch (err) {
@@ -106,28 +106,32 @@ const AddBlogPage = () => {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 py-12 bg-white rounded-xl shadow-lg">
-      <h1 className="text-4xl font-bold mb-10 text-center text-blue-900">
+    <div className="w-full  mx-auto py-12 bg-blue-950 px-60 shadow-lg">
+      <h1 className="text-4xl font-bold mb-10 text-center text-white">
         📝 Create New Blog
       </h1>
 
-      <form onSubmit={handleSubmit} className="space-y-8">
+      <form onSubmit={handleSubmit} className="space-y-8 flex flex-col">
         {/* Password & Category */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="flex flex-col space-y-4">
+          <label className="block font-medium mb-1 text-white">
+            Admin Password
+          </label>
           <input
             type="password"
             name="password"
             placeholder="🔒 Admin Password"
             value={formData.password}
             onChange={handleTextChange}
-            className="input-style"
+            className="input-style border-white bg-white/20 text-white"
             required
           />
+          <label className="block font-medium mb-1 text-white">Category</label>
           <select
             name="category"
             value={formData.category}
             onChange={handleTextChange}
-            className="input-style"
+            className="input-style border-white bg-white/20 text-white"
           >
             <option value="">Select Category</option>
             {categoryChoices.map((choice) => (
@@ -139,95 +143,108 @@ const AddBlogPage = () => {
         </div>
 
         {/* Blog Title, Subtitle */}
-        <input
-          type="text"
-          name="title"
-          placeholder="📌 Blog Title"
-          value={formData.title}
-          onChange={handleTextChange}
-          className="input-style"
-          required
-        />
+        <div className="flex flex-col space-y-4">
+          <label className="block font-medium mb-1 text-white">
+            Blog Title
+          </label>
+          <input
+            type="text"
+            name="title"
+            placeholder="📌 Blog Title"
+            value={formData.title}
+            onChange={handleTextChange}
+            className="input-style border-white bg-white/20 text-white"
+            required
+          />
 
-        <input
-          type="text"
-          name="subtitle"
-          placeholder="✏️ Blog Subtitle"
-          value={formData.subtitle}
-          onChange={handleTextChange}
-          className="input-style"
-        />
+          <label className="block font-medium mb-1 text-white">
+            Blog Subtitle
+          </label>
+          <input
+            type="text"
+            name="subtitle"
+            placeholder="✏️ Blog Subtitle"
+            value={formData.subtitle}
+            onChange={handleTextChange}
+            className="input-style border-white bg-white/20 text-white"
+          />
+        </div>
 
         {/* Description & Content */}
-        <textarea
-          name="description"
-          placeholder="📄 Short Description"
-          value={formData.description}
-          onChange={handleTextChange}
-          rows={3}
-          className="input-style"
-          required
-        ></textarea>
+        <div className="flex flex-col space-y-4">
+          <label className="block font-medium mb-1 text-white">
+            Short Description
+          </label>
+          <textarea
+            name="description"
+            placeholder="📄 Short Description"
+            value={formData.description}
+            onChange={handleTextChange}
+            rows={3}
+            className="input-style border-white bg-white/20 text-white"
+            required
+          ></textarea>
 
-        <textarea
-          name="content"
-          placeholder="📝 Main Content"
-          value={formData.content}
-          onChange={handleTextChange}
-          rows={6}
-          className="input-style"
-          required
-        ></textarea>
+          <label className="block font-medium mb-1 text-white">
+            Main Content
+          </label>
+          <textarea
+            name="content"
+            placeholder="📝 Main Content"
+            value={formData.content}
+            onChange={handleTextChange}
+            rows={6}
+            className="input-style border-white bg-white/20 text-white"
+            required
+          ></textarea>
+        </div>
 
         {/* Thumbnail & Video */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block font-medium mb-1 text-gray-700">
-              🖼️ Thumbnail Image
-            </label>
-            <input
-              type="file"
-              onChange={(e) => setThumbnail(e.target.files[0])}
-              className="w-full"
-            />
-          </div>
-          <div>
-            <label className="block font-medium mb-1 text-gray-700">
-              🎥 Blog Video (Optional)
-            </label>
-            <input
-              type="file"
-              onChange={(e) => setVideo(e.target.files[0])}
-              className="w-full"
-            />
-          </div>
+        <div className="flex flex-col space-y-4">
+          <label className="block font-medium mb-1 text-white">
+            🖼️ Thumbnail Image
+          </label>
+          <input
+            type="file"
+            onChange={(e) => setThumbnail(e.target.files[0])}
+            className="input-style border-white bg-white/20 text-white"
+          />
+
+          <label className="block font-medium mb-1 text-white">
+            🎥 Blog Video (Optional)
+          </label>
+          <input
+            type="file"
+            onChange={(e) => setVideo(e.target.files[0])}
+            className="input-style border-white bg-white/20 text-white"
+          />
         </div>
 
         {/* Blog Images */}
-        <div>
-          <label className="block font-medium mb-1 text-gray-700">
+        <div className="flex flex-col space-y-4">
+          <label className="block font-medium mb-1 text-white">
             📸 Blog Images (Multiple)
           </label>
           <input
             type="file"
             multiple
             onChange={handleImageUpload}
-            className="w-full"
+            className="input-style border-white bg-white/20 text-white"
           />
         </div>
 
-        <hr className="border-t-2 my-8" />
+        <hr className="border-t-2 my-8 border-white" />
 
         {/* Content Blocks */}
         <div>
-          <h2 className="text-2xl font-semibold mb-6 text-blue-800">
+          <h2 className="text-2xl font-semibold mb-6 text-white">
             📚 Content Blocks
           </h2>
 
           {formData.contents.map((content, index) => (
             <div
               key={index}
-              className="p-6 mb-6 bg-gray-100 rounded-xl border border-gray-300 shadow-sm"
+              className="p-6 mb-6 bg-blue-600 rounded-xl border border-gray-300 shadow-sm"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <input
@@ -237,7 +254,7 @@ const AddBlogPage = () => {
                   onChange={(e) =>
                     handleContentChange(index, "heading", e.target.value)
                   }
-                  className="input-style"
+                  className="input-style border-white bg-white/20 text-white"
                 />
                 <input
                   type="text"
@@ -246,7 +263,7 @@ const AddBlogPage = () => {
                   onChange={(e) =>
                     handleContentChange(index, "url", e.target.value)
                   }
-                  className="input-style"
+                  className="input-style border-white bg-white/20 text-white"
                 />
                 <input
                   type="text"
@@ -255,7 +272,7 @@ const AddBlogPage = () => {
                   onChange={(e) =>
                     handleContentChange(index, "url_text", e.target.value)
                   }
-                  className="input-style"
+                  className="input-style border-white bg-white/20 text-white"
                 />
                 <input
                   type="text"
@@ -264,7 +281,7 @@ const AddBlogPage = () => {
                   onChange={(e) =>
                     handleContentChange(index, "subtitle", e.target.value)
                   }
-                  className="input-style"
+                  className="input-style border-white bg-white/20 text-white"
                 />
               </div>
 
@@ -274,12 +291,12 @@ const AddBlogPage = () => {
                 onChange={(e) =>
                   handleContentChange(index, "content", e.target.value)
                 }
-                className="input-style"
+                className="input-style border-white bg-white/20 text-white"
                 rows={4}
               />
 
               <div className="mt-4">
-                <label className="block font-medium mb-1 text-gray-700">
+                <label className="block font-medium mb-1 text-white">
                   📁 Upload Image
                 </label>
                 <input
@@ -287,7 +304,7 @@ const AddBlogPage = () => {
                   onChange={(e) =>
                     handleContentImageUpload(index, e.target.files[0])
                   }
-                  className="w-full"
+                  className="input-style border-white bg-white/20 text-white"
                 />
               </div>
             </div>
@@ -299,6 +316,18 @@ const AddBlogPage = () => {
             className="bg-blue-600 text-white py-2 px-5 rounded-md hover:bg-blue-700 transition"
           >
             ➕ Add Content Block
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              const updatedContents = [...formData.contents];
+              updatedContents.pop();
+              setFormData((prev) => ({ ...prev, contents: updatedContents }));
+            }}
+            className="bg-red-600 text-white py-2 px-5 rounded-md hover:bg-red-700 transition"
+          >
+            ➖ Remove Content Block
           </button>
         </div>
 

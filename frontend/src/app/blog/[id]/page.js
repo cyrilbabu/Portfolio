@@ -8,6 +8,7 @@ import {
   FaCalendarCheck,
   FaShare,
   FaExternalLinkAlt,
+  FaArrowRight,
 } from "react-icons/fa";
 
 export default async function BlogPage({ params }) {
@@ -23,11 +24,8 @@ export default async function BlogPage({ params }) {
   const blog = await res.json();
 
   return (
-    <div className="bg-blue-950 text-white px-8 md:px-36 py-10">
-      {/* <div className="flex flex-col md:flex-row border-2 border-white rounded-lg overflow-hidden shadow-2xl bg-white/10">
-        <h1 className="text-3xl font-bold text-gray-100 mb-2">{blog.title}</h1>
-      </div> */}
-      <div className="max-w-5xl mx-auto shadow-2xl bg-white/10 rounded-lg p-2 md:p-10">
+    <div className="bg-blue-950 text-white px-8 md:px-36 py-4 pb-12">
+      <div className="max-w-4xl mx-auto shadow-2xl bg-white/10 rounded p-2 border-2 border-white">
         <img
           src={
             blog.thumbnail
@@ -38,7 +36,6 @@ export default async function BlogPage({ params }) {
           className="w-full rounded object-cover"
         />
       </div>
-
       {/* Thumbnail & Blog Header */}
       <div className="flex flex-col md:flex-row border-2 border-white rounded-lg overflow-hidden shadow-2xl bg-white/10 mt-4">
         <div className="w-full p-6 flex flex-col justify-between">
@@ -52,21 +49,6 @@ export default async function BlogPage({ params }) {
                 {blog.subtitle}
               </p>
             )}
-
-            <div className="flex flex-wrap gap-4 text-gray-400 text-sm mb-3">
-              <div className="flex items-center gap-2">
-                <FaCalendarCheck />
-                {new Date(blog.created_at).toLocaleDateString()}
-              </div>
-              <div className="flex items-center gap-2">
-                <FaEye />
-                {blog.views}
-              </div>
-              <div className="flex items-center gap-2">
-                <FaShareAlt />
-                {blog.shares}
-              </div>
-            </div>
 
             <p className="text-stone-200 mb-4">{blog.description}</p>
 
@@ -88,9 +70,20 @@ export default async function BlogPage({ params }) {
           </div>
 
           <div className="flex justify-between items-center mt-6 text-white text-sm">
-            <p className="bg-white/30 px-4 py-1 rounded hover:bg-white/50 font-semibold transition-all">
-              Read More
-            </p>
+            <div className="flex flex-wrap gap-4 text-gray-400 text-sm mb-3">
+              <div className="flex items-center gap-2">
+                <FaCalendarCheck />
+                {new Date(blog.created_at).toLocaleDateString()}
+              </div>
+              <div className="flex items-center gap-2">
+                <FaEye />
+                {blog.views}
+              </div>
+              <div className="flex items-center gap-2">
+                <FaShareAlt />
+                {blog.shares}
+              </div>
+            </div>
             <div className="flex gap-4">
               <span className="flex items-center gap-1 bg-white/20 px-2 py-1 rounded">
                 <FaHeart />
@@ -107,63 +100,64 @@ export default async function BlogPage({ params }) {
           </div>
         </div>
       </div>
-
       {/* Main Content */}
-      <div className="mt-10 ">
-        <h2 className="text-2xl font-semibold mb-4">Blog Content</h2>
-        <p className="text-gray-200 whitespace-pre-line">{blog.content}</p>
-      </div>
+      <div className="mt-4 border-2 border-white rounded-lg p-6 bg-white/10 shadow-2xl ">
+        {/* <h2 className="text-2xl font-semibold mb-4">Blog Content</h2> */}
+        <p className="text-gray-200 ">{blog.content}</p>
+        {blog.contents?.length > 0 && (
+          <div className="">
+            <div className="">
+              {blog.contents.map((item, index) => (
+                <div key={index}>
+                  {item.image && (
+                    <div className="mt-4 w-full flex justify-center items-center">
+                      <img
+                        src={`${baseUrl}/${item.image}`}
+                        alt={item.heading}
+                        className="max-w-3xl object-cover rounded-lg"
+                      />
+                    </div>
+                  )}
 
-      {/* Dynamic Blog Sections */}
-      {blog.contents?.length > 0 && (
-        <div className="mt-10">
-          <h2 className="text-2xl font-semibold mb-6">More Details</h2>
-          <div className="space-y-6">
-            {blog.contents.map((item, index) => (
-              <div
-                key={index}
-                className="p-6 border border-white/20 bg-white/10 rounded-xl"
-              >
-                <h3 className="text-xl font-bold text-white mb-1">
-                  {item.heading}
-                </h3>
+                  {item.heading && (
+                    <h3 className="text-xl border-l-4 border-red-500 pl-4 font-bold mt-4 text-white">
+                      {item.heading}
+                    </h3>
+                  )}
 
-                {item.subtitle && (
-                  <p className="text-sm text-gray-300 italic mb-2">
-                    {item.subtitle}
-                  </p>
-                )}
+                  {item.subtitle && (
+                    <p className="text-sm text-gray-300  flex items-center gap-2 py-1 mt-2">
+                      <FaArrowRight />
+                      {item.subtitle}
+                    </p>
+                  )}
 
-                {item.url && (
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-400 hover:underline flex items-center gap-1 mb-2 text-sm"
-                  >
-                    <FaExternalLinkAlt />
-                    {item.url_text || "View Link"}
-                  </a>
-                )}
+                  {item.content && (
+                    <p className="text-gray-200 whitespace-pre-line flex items-center gap-2 py-1 ">
+                      {item.content}
+                    </p>
+                  )}
 
-                <p className="text-gray-200 whitespace-pre-line">
-                  {item.content}
-                </p>
-
-                {item.image && (
-                  <div className="mt-4">
-                    <img
-                      src={`${baseUrl}/${item.image}`}
-                      alt={item.heading}
-                      className="w-full max-h-80 object-cover rounded-lg"
-                    />
-                  </div>
-                )}
-              </div>
-            ))}
+                  {item.url && (
+                    <div className="mt-4 flex">
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-white border-2 border-white bg-white/40 font-bold px-2 py-1 rounded hover:underline flex items-center gap-1  text-sm"
+                      >
+                        <FaExternalLinkAlt />
+                        {item.url_text || "View Link"}
+                      </a>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
+      {/* Dynamic Blog Sections */}
     </div>
   );
 }

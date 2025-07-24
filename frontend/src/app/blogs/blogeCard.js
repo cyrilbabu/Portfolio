@@ -13,9 +13,20 @@ import {
 
 import BlogSpeaker from "./Pulse";
 import Link from "next/link";
+import axios from "axios";
 
 const BlogCard = ({ blog, isReversed }) => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  const updateMetrics = async (metric) => {
+    try {
+      await axios.post(`${baseUrl}/blogs/update-metrics/${blog.id}/`, {
+        metrics: { [metric]: 1 },
+      });
+    } catch (error) {
+      console.error("Error updating metrics:", error);
+    }
+  };
 
   return (
     <div
@@ -27,6 +38,7 @@ const BlogCard = ({ blog, isReversed }) => {
       <Link
         href={`/blog/${blog.id}`}
         className="w-full md:w-5/12 flex justify-center items-center mb-4 md:mb-0 hover:scale-105 transition-transform duration-300"
+        onClick={() => updateMetrics("views")}
       >
         <img
           src={
@@ -46,7 +58,10 @@ const BlogCard = ({ blog, isReversed }) => {
         }`}
       >
         <div>
-          <Link href={`/blog/${blog.id}`}>
+          <Link
+            href={`/blog/${blog.id}`}
+            onClick={() => updateMetrics("views")}
+          >
             <h2 className="text-xl sm:text-2xl font-bold mb-2 text-gray-200 hover:text-white transition hover:underline">
               {blog.title}
             </h2>
@@ -107,18 +122,28 @@ const BlogCard = ({ blog, isReversed }) => {
           <Link
             href={`/blog/${blog.id}`}
             className="border bg-white/30 text-white font-bold px-4 py-2 rounded-lg hover:bg-white/50 transition-all duration-300 hover:scale-105"
+            onClick={() => updateMetrics("views")}
           >
             Read More
           </Link>
 
           <div className="flex gap-3 flex-wrap">
-            <span className="flex items-center gap-1 border rounded-lg py-1 px-3 bg-white/20">
+            <span
+              className="flex items-center gap-1 border rounded-lg py-1 px-3 bg-white/20 cursor-pointer"
+              onClick={() => updateMetrics("likes")}
+            >
               <FaHeart /> {blog.likes}
             </span>
-            <span className="flex items-center gap-1 border rounded-lg py-1 px-3 bg-white/20">
+            <span
+              className="flex items-center gap-1 border rounded-lg py-1 px-3 bg-white/20 cursor-pointer"
+              onClick={() => updateMetrics("comments_count")}
+            >
               <FaCommentDots /> {blog.comments_count}
             </span>
-            <span className="flex items-center gap-1 border rounded-lg py-1 px-3 bg-white/20">
+            <span
+              className="flex items-center gap-1 border rounded-lg py-1 px-3 bg-white/20 cursor-pointer"
+              onClick={() => updateMetrics("shares")}
+            >
               <FaShare />
             </span>
           </div>

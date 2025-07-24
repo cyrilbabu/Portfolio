@@ -53,13 +53,13 @@ class BlogCreateView(APIView):
     def post(self, request):
         data = request.data
         
-        password = os.getenv('BLOG_CREATION_PASSWORD')
-        print("Password from env:", password)
-        print("Data password:", data.get('password'))
+        # password = os.getenv('BLOG_CREATION_PASSWORD')
+        # print("Password from env:", password)
+        # print("Data password:", data.get('password'))
 
-        # Compare provided password with environment password
-        if data.get('password') != password:
-            return Response({"error": "Invalid password"}, status=status.HTTP_403_FORBIDDEN)
+        # # Compare provided password with environment password
+        # if data.get('password') != password:
+        #     return Response({"error": "Invalid password"}, status=status.HTTP_403_FORBIDDEN)
 
         # Create the Blog instance
         blog_serializer = BlogSerializerforOne(data=data)
@@ -79,3 +79,20 @@ class BlogCreateView(APIView):
             return Response({"message": "Blog created successfully", "blog_id": blog.id}, status=status.HTTP_201_CREATED)
         else:
             return Response(blog_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class BlogUpdateMetricsView(APIView):
+    def post(self, request, pk):
+        try:
+            blog = Blog.objects.get(pk=pk)
+        except Blog.DoesNotExist:
+            raise Http404
+
+        metrics = request.data.get('metrics', {})
+        blog.likes += metrics.get('likes', 0)
+        blog.views += metrics.get('views', 0)
+        blog.shares += metrics.get('shares', 0)
+        blog.comments_count += metrics.get('comments_count', 0)
+        blog.save()
+
+        return Response({"message": "Metrics updated successfully"}, status=status.HTTP_200_OK)
