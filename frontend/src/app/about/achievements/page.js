@@ -29,8 +29,8 @@ export default async function AchievementsPage() {
             key={achievement.id}
             className="bg-white/20 border-2 border-white rounded overflow-hidden shadow-md hover:scale-[1.02] transition-transform duration-300"
           >
-            <div className="p-4">
-              <div className="flex items-center gap-3 mb-4 flex-wrap">
+            <div className="p-4 w-full">
+              <div className=" w-full flex items-center gap-3 mb-4 flex-wrap">
                 {achievement.logo && (
                   <img
                     src={`${baseUrl}${achievement.logo}`}
@@ -38,7 +38,7 @@ export default async function AchievementsPage() {
                     className="w-10 h-10 object-contain bg-white rounded-full p-1 border"
                   />
                 )}
-                <h2 className="text-base sm:text-lg font-semibold text-white border-l-4 border-red-500 pl-2">
+                <h2 className="text-base w-10/12 sm:text-lg font-semibold text-white border-l-4 border-red-500 pl-2">
                   {achievement.title}
                 </h2>
               </div>
