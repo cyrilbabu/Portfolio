@@ -31,7 +31,7 @@ const AboutPage = ({ children }) => {
             Senior Software Engineer.
           </h3>
           <h3 className="text-base md:text-lg pt-3">At Kipps Ai</h3>
-          <p className="mt-4 text-base md:text-lg max-w-full md:max-w-[80%] lg:max-w-[40%]">
+          <p className="mt-4 text-base hidden md:block md:text-lg max-w-full md:max-w-[80%] lg:max-w-[40%]">
             I am a Senior Software Engineer with a passion for building scalable
             and efficient web applications. My expertise lies in full-stack
             development, and I have a strong background in both front-end and
