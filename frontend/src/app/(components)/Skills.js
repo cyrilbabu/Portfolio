@@ -22,7 +22,7 @@ export default async function Skills() {
 
       {skillsData.map((group, idx) => (
         <div key={idx} className="">
-          <h2 className="text-2xl font-semibold text-yellow-400 mb-4 border-l-4 border-red-500 mt-2 pl-3">
+          <h2 className="text-2xl font-semibold text-yellow-400 mb-4 border-l-4 border-red-500 mt-4 pl-3">
             {group.domain}
           </h2>
 
