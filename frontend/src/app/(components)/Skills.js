@@ -3,7 +3,7 @@ import { BadgeCheck, AlertCircle, TrendingUp } from "lucide-react";
 export default async function Skills() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const res = await fetch(`${baseUrl}/about/skills/`, {
-    cache: "no-store", // disables caching
+    cache: "no-store",
   });
 
   if (!res.ok) {
@@ -15,29 +15,29 @@ export default async function Skills() {
   const skillsData = await res.json();
 
   return (
-    <div className="bg-blue-950 w-full px-36 pb-12">
-      <h1 className="text-4xl font-bold text-center text-white mb-10">
-        My Skills
+    <div className="bg-blue-950 w-full px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 pb-12">
+      <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold border-l-4 border-red-500 pl-4 mb-8 text-white">
+        Skills
       </h1>
 
       {skillsData.map((group, idx) => (
-        <div key={idx} className="">
-          <h2 className="text-2xl font-semibold text-yellow-400 mb-4 border-l-4 border-red-500 mt-4 pl-3">
+        <div key={idx}>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-yellow-400 mb-4 border-l-4 border-red-500 mt-6 pl-3">
             {group.domain}
           </h2>
 
-          <div className="flex gap-6 flex-wrap">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {group.skills.map((skill, sIdx) => (
               <div
                 key={sIdx}
-                className="bg-white/80 hover:scale-110 transition-transform backdrop-blur-md border border-white px-6 py-4 rounded text-white text-sm text-center"
+                className="bg-white/80 hover:scale-105 transition-transform duration-200 backdrop-blur-md border border-white px-4 py-4 rounded text-white text-sm text-center shadow-md"
               >
                 <img
                   src={`${baseUrl}/${skill.image}/`}
                   alt={skill.name}
-                  className="w-32 h-32 mb-2 object-contain"
+                  className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mb-2 mx-auto object-contain"
                 />
-                <h3 className="text-lg font-bold my-2 text-blue-950">
+                <h3 className="text-base sm:text-lg font-bold my-2 text-blue-950">
                   {skill.name}
                 </h3>
                 <p

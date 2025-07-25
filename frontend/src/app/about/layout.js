@@ -24,7 +24,7 @@ const AboutPage = ({ children }) => {
 
         {/* Foreground Content */}
         <div className="relative z-10 flex flex-col justify-center px-6 md:px-16 lg:px-32 py-8 text-white">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">
+          <h1 className="text-xl md:text-4xl font-bold mb-4">
             Chropton Unsh Cyril Babu
           </h1>
           <h3 className="text-xl md:text-2xl border-l-4 border-red-500 pl-4">
