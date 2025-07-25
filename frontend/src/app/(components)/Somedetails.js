@@ -1,5 +1,6 @@
 import React from "react";
-import { Briefcase, Code, CheckCircle } from "lucide-react";
+import { Briefcase, CheckCircle } from "lucide-react";
+import { FaLaptopCode } from "react-icons/fa";
 
 const Somedetails = () => {
   const professionalStartDate = new Date("2024-08-01");
@@ -42,7 +43,7 @@ const Somedetails = () => {
             value: `${professionalExperience.years} Years, ${professionalExperience.months} Months, ${professionalExperience.days} Days`,
           },
           {
-            icon: <Code className="w-8 h-8" />,
+            icon: <FaLaptopCode className="w-8 h-8" />,
             label: "Coding Experience",
             value: `${codingExperience.years} Years, ${codingExperience.months} Months, ${codingExperience.days} Days`,
           },
