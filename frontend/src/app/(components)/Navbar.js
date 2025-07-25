@@ -54,7 +54,7 @@ export default function Navbar() {
         <div className="md:hidden flex flex-col gap-4 px-4 pb-6 bg-[#1a1d34] text-base text-white">
           <Link
             href="/"
-            className="hover:text-orange-500 transition"
+            className="hover:text-orange-500 transition pt-2"
             onClick={toggleMenu}
           >
             Home

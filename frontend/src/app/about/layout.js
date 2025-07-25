@@ -18,7 +18,7 @@ const AboutPage = ({ children }) => {
     <>
       <div className="relative w-full overflow-hidden">
         {/* Background Layer */}
-        <div className="absolute inset-0 z-0">
+        <div className="hidden md:block absolute inset-0 z-0">
           <TopDiv />
         </div>
 
