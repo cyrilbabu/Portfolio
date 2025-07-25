@@ -16,7 +16,7 @@ import ContactMe from "../(components)/contact-me";
 const AboutPage = ({ children }) => {
   return (
     <>
-      <div className="relative w-full overflow-hidden">
+      <div className="hidden md:block relative w-full overflow-hidden">
         {/* Background Layer */}
         <div className="hidden md:block absolute inset-0 z-0">
           <TopDiv />

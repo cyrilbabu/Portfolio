@@ -9,7 +9,7 @@ const AboutPage = () => {
   return (
     <>
       <ExperiencePage />
-      <ProjectsPage />
+      {/* <ProjectsPage /> */}
       <Skills />
       <AchievementsPage />
       <EducationPage />

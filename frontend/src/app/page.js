@@ -1,12 +1,13 @@
 import React from "react";
-import { FaRobot, FaComments } from "react-icons/fa";
+import { FaComments } from "react-icons/fa";
 import Image from "next/image";
 import AIInteraction from "./(components)/AIInteraction";
 import Somedetails from "./(components)/Somedetails";
-import ContactMe from "./(components)/contact-me";
+import { CgDatabase } from "react-icons/cg";
 import Link from "next/link";
 import Typewrite from "./(components)/Typewriter";
 import AboutSection from "./(components)/AboutSection";
+import LatestBloge from "./(components)/LatestBloge";
 
 export default function Home() {
   return (
@@ -25,20 +26,20 @@ export default function Home() {
             <Typewrite />
           </h2>
           <p className="text-gray-300 mt-4 max-w-xl leading-relaxed">
-            Let’s build scalable, efficient, and innovative solutions together
-            where every line of code is crafted with purpose and precision.
+            See my Latest blog what I am doing and what I have done in the past.
+            I am a Senior Software Engineer with a passion for building
           </p>
 
           {/* Buttons */}
           <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-            <Link href="/voice-chat">
-              <button className="flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white px-6 py-3 text-base sm:text-lg font-semibold rounded-full shadow-lg transition-transform hover:scale-105 w-full sm:w-auto">
-                <FaRobot className="text-xl" />
-                Talk to AI Me
+            <Link href="/blogs">
+              <button className="bg-purple-400 hover:bg-white/30 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto">
+                <CgDatabase className="text-xl" />
+                See Blogs
               </button>
             </Link>
             <Link href="/chat">
-              <button className="flex items-center justify-center gap-2 border-2 border-orange-500 text-orange-500 hover:text-white hover:bg-orange-500 px-6 py-3 text-base sm:text-lg font-semibold rounded-full shadow-lg transition-transform hover:scale-105 w-full sm:w-auto">
+              <button className="bg-white/20 border-2 border-white hover:bg-white/30 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto">
                 <FaComments className="text-xl" />
                 Chat with AI Me
               </button>
@@ -66,6 +67,7 @@ export default function Home() {
 
       {/* Additional Sections */}
       <Somedetails />
+      {/* <LatestBloge /> */}
       <AboutSection />
       <AIInteraction />
     </div>
