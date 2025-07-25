@@ -24,10 +24,10 @@ const AboutPage = ({ children }) => {
 
         {/* Foreground Content */}
         <div className="relative z-10 flex flex-col justify-center px-6 md:px-16 lg:px-32 py-8 text-white">
-          <h1 className="text-xl md:text-4xl font-bold mb-4">
+          <h1 className=" hidden md:block text-xl md:text-4xl font-bold mb-4">
             Chropton Unsh Cyril Babu
           </h1>
-          <h3 className="hidden md:blocktext-xl md:text-2xl border-l-4 border-red-500 pl-4">
+          <h3 className="hidden md:block text-xl md:text-2xl border-l-4 border-red-500 pl-4">
             Senior Software Engineer.
           </h3>
           <h3 className="text-base hidden md:block md:text-lg pt-3">
@@ -40,7 +40,7 @@ const AboutPage = ({ children }) => {
             back-end technologies.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-4 text-2xl md:text-3xl">
+          <div className=" hidden md:flex mt-8  flex-wrap gap-4 text-2xl md:text-3xl">
             <a
               href="https://www.linkedin.com/in/chropton-unsh-cyril-babu-79119a284/"
               target="_blank"
@@ -84,7 +84,9 @@ const AboutPage = ({ children }) => {
           </div>
         </div>
       </div>
-      <Navbar className="hidden md:block" />
+      <div className="hidden md:block w-full">
+        <Navbar />
+      </div>
       {children}
     </>
   );
