@@ -83,7 +83,7 @@ export default async function ExperiencePage() {
                       {timeline.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-2 mt-2">
+                    <div className="flex flex-wrap gap-2 mt-4">
                       {timeline.skills_used.map((skill, idx) => (
                         <div
                           key={idx}
