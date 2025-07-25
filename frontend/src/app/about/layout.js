@@ -27,10 +27,12 @@ const AboutPage = ({ children }) => {
           <h1 className="text-xl md:text-4xl font-bold mb-4">
             Chropton Unsh Cyril Babu
           </h1>
-          <h3 className="text-xl md:text-2xl border-l-4 border-red-500 pl-4">
+          <h3 className="hidden md:blocktext-xl md:text-2xl border-l-4 border-red-500 pl-4">
             Senior Software Engineer.
           </h3>
-          <h3 className="text-base md:text-lg pt-3">At Kipps Ai</h3>
+          <h3 className="text-base hidden md:block md:text-lg pt-3">
+            At Kipps Ai
+          </h3>
           <p className="mt-4 text-base hidden md:block md:text-lg max-w-full md:max-w-[80%] lg:max-w-[40%]">
             I am a Senior Software Engineer with a passion for building scalable
             and efficient web applications. My expertise lies in full-stack
@@ -82,7 +84,7 @@ const AboutPage = ({ children }) => {
           </div>
         </div>
       </div>
-      <Navbar />
+      <Navbar className="hidden md:block" />
       {children}
     </>
   );
