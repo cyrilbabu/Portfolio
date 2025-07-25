@@ -54,7 +54,7 @@ const Somedetails = () => {
         ].map((item, index) => (
           <div
             key={index}
-            className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-lg text-sm text-center"
+            className="bg-white/10 backdrop-blur-md border-2 border-white p-6 rounded-lg text-sm text-center"
           >
             <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center rounded-full bg-yellow-300 text-blue-900 shadow-lg">
               {item.icon}

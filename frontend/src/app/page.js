@@ -7,7 +7,9 @@ import { CgDatabase } from "react-icons/cg";
 import Link from "next/link";
 import Typewrite from "./(components)/Typewriter";
 import AboutSection from "./(components)/AboutSection";
-import LatestBloge from "./(components)/LatestBloge";
+import LatestBlog from "./(components)/latestblog";
+import CardCarousel from "./(components)/BlogeSilider";
+import YouTubePromo from "./(components)/Youtube";
 
 export default function Home() {
   return (
@@ -33,13 +35,13 @@ export default function Home() {
           {/* Buttons */}
           <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <Link href="/blogs">
-              <button className="bg-purple-400 hover:bg-white/30 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto">
+              <button className="bg-purple-400 hover:bg-purple-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto">
                 <CgDatabase className="text-xl" />
                 See Blogs
               </button>
             </Link>
             <Link href="/chat">
-              <button className="bg-white/20 border-2 border-white hover:bg-white/30 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto">
+              <button className="bg-green-600  hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto">
                 <FaComments className="text-xl" />
                 Chat with AI Me
               </button>
@@ -67,9 +69,10 @@ export default function Home() {
 
       {/* Additional Sections */}
       <Somedetails />
-      {/* <LatestBloge /> */}
-      <AboutSection />
+      <LatestBlog />
       <AIInteraction />
+      <AboutSection />
+      <YouTubePromo />
     </div>
   );
 }
