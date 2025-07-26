@@ -24,7 +24,7 @@ export default async function BlogPage({ params }) {
   const blog = await res.json();
 
   return (
-    <div className="bg-blue-950 text-white px-8 md:px-36 py-4 pb-12">
+    <div className="bg-blue-950 text-white px-8 md:px-60 py-4 pb-12">
       <div className="max-w-4xl mx-auto shadow-2xl bg-white/10 rounded p-2 border-2 border-white">
         <img
           src={
@@ -102,62 +102,60 @@ export default async function BlogPage({ params }) {
       </div>
       {/* Main Content */}
       <div className="mt-4 border-2 border-white rounded-lg p-6 bg-white/10 shadow-2xl ">
-        {/* <h2 className="text-2xl font-semibold mb-4">Blog Content</h2> */}
         <p className="text-gray-200 ">{blog.content}</p>
-        {blog.contents?.length > 0 && (
-          <div className="">
-            <div className="">
-              {blog.contents.map((item, index) => (
-                <div key={index}>
-                  {item.image && (
-                    <div className="mt-4 w-full flex justify-center items-center">
-                      <img
-                        src={`${baseUrl}/${item.image}`}
-                        alt={item.heading}
-                        className="max-w-3xl object-cover rounded-lg"
-                      />
-                    </div>
-                  )}
-
-                  {item.heading && (
-                    <h3 className="text-xl border-l-4 border-red-500 pl-4 font-bold mt-4 text-white">
-                      {item.heading}
-                    </h3>
-                  )}
-
-                  {item.subtitle && (
-                    <p className="text-sm text-gray-300  flex items-center gap-2 py-1 mt-2">
-                      <FaArrowRight />
-                      {item.subtitle}
-                    </p>
-                  )}
-
-                  {item.content && (
-                    <p className="text-gray-200 whitespace-pre-line flex items-center gap-2 py-1 ">
-                      {item.content}
-                    </p>
-                  )}
-
-                  {item.url && (
-                    <div className="mt-4 flex">
-                      <a
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-white border-2 border-white bg-white/40 font-bold px-2 py-1 rounded hover:underline flex items-center gap-1  text-sm"
-                      >
-                        <FaExternalLinkAlt />
-                        {item.url_text || "View Link"}
-                      </a>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
-      {/* Dynamic Blog Sections */}
+
+      {blog.contents?.length > 0 && (
+        <div className="">
+          {blog.contents.map((item, index) => (
+            <div key={index}>
+              <div className="mt-4 border-2 border-white rounded-lg p-6 bg-white/10 shadow-2xl ">
+                {item.heading && (
+                  <h3 className="text-xl border-l-4 border-red-500 pl-4 font-bold  text-white">
+                    {item.heading}
+                  </h3>
+                )}
+
+                {item.subtitle && (
+                  <p className="text-sm text-gray-300  flex items-center gap-2 py-1 mt-2">
+                    <FaArrowRight />
+                    {item.subtitle}
+                  </p>
+                )}
+
+                {item.content && (
+                  <p className="text-gray-200 whitespace-pre-line flex items-center gap-2 py-1 ">
+                    {item.content}
+                  </p>
+                )}
+
+                {item.url && (
+                  <div className="mt-4 flex">
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white border-2 border-white bg-white/40 font-bold px-2 py-1 rounded hover:underline flex items-center gap-1  text-sm"
+                    >
+                      <FaExternalLinkAlt />
+                      {item.url_text || "View Link"}
+                    </a>
+                  </div>
+                )}
+                {item.image && (
+                  <div className="mt-4 w-full flex justify-center items-center">
+                    <img
+                      src={`${baseUrl}/${item.image}`}
+                      alt={item.heading}
+                      className="max-w-3xl object-cover rounded-lg"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
