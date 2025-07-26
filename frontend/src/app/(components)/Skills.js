@@ -22,7 +22,7 @@ export default async function Skills() {
 
       {skillsData.map((group, idx) => (
         <div key={idx}>
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-yellow-400 mb-4 border-l-4 border-red-500 mt-6 pl-3">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-4 text-white mt-6">
             {group.domain}
           </h2>
 
@@ -30,7 +30,7 @@ export default async function Skills() {
             {group.skills.map((skill, sIdx) => (
               <div
                 key={sIdx}
-                className="bg-white/80 hover:scale-105 transition-transform duration-200 backdrop-blur-md border border-white px-4 py-4 rounded text-white text-sm text-center shadow-md"
+                className="bg-white/50 hover:scale-105 transition-transform duration-200 backdrop-blur-md border border-white px-4 py-4 rounded text-white text-sm text-center shadow-md"
               >
                 <img
                   src={`${baseUrl}/${skill.image}/`}
