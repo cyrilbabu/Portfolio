@@ -18,7 +18,7 @@ class BlogCommentAdmin(admin.ModelAdmin):
 
 @admin.register(BlogContent)
 class BlogContentAdmin(admin.ModelAdmin):
-    list_display = ('blog')
+    list_display = ('blog', )
     search_fields = ('blog__title',)
     ordering = ('-created_at',)
     
