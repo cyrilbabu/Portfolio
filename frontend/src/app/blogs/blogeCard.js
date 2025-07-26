@@ -32,7 +32,7 @@ const BlogCard = ({ blog, isReversed }) => {
     <div
       className={`text-white flex flex-col md:flex-row ${
         isReversed ? "md:flex-row-reverse" : ""
-      } border-2 rounded-lg p-4 md:p-6 mb-6 bg-white/10 shadow-md`}
+      } border-2 rounded-lg p-4 md:p-4 mb-6 bg-white/10 shadow-md`}
     >
       {/* Image */}
       <Link

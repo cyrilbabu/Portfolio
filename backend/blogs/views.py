@@ -53,11 +53,11 @@ class BlogCreateView(APIView):
     def post(self, request):
         data = request.data
 
-        password = os.getenv('BLOG_CREATION_PASSWORD')
+        # password = os.getenv('BLOG_CREATION_PASSWORD')
 
-        # Compare provided password with environment password
-        if data.get('password') != password:
-            return Response({"error": "Invalid password"}, status=status.HTTP_403_FORBIDDEN)
+        # # Compare provided password with environment password
+        # if data.get('password') != password:
+        #     return Response({"error": "Invalid password"}, status=status.HTTP_403_FORBIDDEN)
 
         # Create the Blog instance
         blog_serializer = BlogSerializerforOne(data={

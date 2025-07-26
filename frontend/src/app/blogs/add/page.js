@@ -275,30 +275,6 @@ const AddBlogPage = () => {
                     className={inputStyle}
                   />
                   <label className="block font-medium mb-1 text-white">
-                    🔗 URL
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="🔗 URL"
-                    value={content.url}
-                    onChange={(e) =>
-                      handleContentChange(index, "url", e.target.value)
-                    }
-                    className={inputStyle}
-                  />
-                  <label className="block font-medium mb-1 text-white">
-                    🔤 URL Text
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="🔤 URL Text"
-                    value={content.url_text}
-                    onChange={(e) =>
-                      handleContentChange(index, "url_text", e.target.value)
-                    }
-                    className={inputStyle}
-                  />
-                  <label className="block font-medium mb-1 text-white">
                     📝 Subtitle
                   </label>
                   <input
@@ -322,6 +298,30 @@ const AddBlogPage = () => {
                   }
                   className={inputStyle}
                   rows={4}
+                />
+                <label className="block font-medium mb-1 text-white">
+                  🔗 URL
+                </label>
+                <input
+                  type="text"
+                  placeholder="🔗 URL"
+                  value={content.url}
+                  onChange={(e) =>
+                    handleContentChange(index, "url", e.target.value)
+                  }
+                  className={inputStyle}
+                />
+                <label className="block font-medium mb-1 text-white">
+                  🔤 URL Text
+                </label>
+                <input
+                  type="text"
+                  placeholder="🔤 URL Text"
+                  value={content.url_text}
+                  onChange={(e) =>
+                    handleContentChange(index, "url_text", e.target.value)
+                  }
+                  className={inputStyle}
                 />
                 <div className="mt-4">
                   <label className="block font-medium mb-1 text-white">

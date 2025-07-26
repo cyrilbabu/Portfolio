@@ -124,8 +124,8 @@ export default async function BlogPage({ params }) {
                 )}
 
                 {item.content && (
-                  <p className="text-gray-200 whitespace-pre-line flex items-center gap-2 py-1 ">
-                    {item.content}
+                  <p className="text-gray-200 items-center gap-2 mt-2">
+                    <div dangerouslySetInnerHTML={{ __html: item.content }} />
                   </p>
                 )}
 

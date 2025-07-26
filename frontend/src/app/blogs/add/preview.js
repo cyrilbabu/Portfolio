@@ -115,7 +115,7 @@ export default function Preview({ blog }) {
                 )}
 
                 {item.content && (
-                  <p className="text-gray-200 whitespace-pre-line flex items-center gap-2 py-1 ">
+                  <p className="text-gray-200 whitespace-pre-line flex w-full items-center gap-2 py-1 ">
                     {item.content}
                   </p>
                 )}
