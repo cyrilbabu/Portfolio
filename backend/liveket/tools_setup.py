@@ -1,77 +1,118 @@
 import logging
+import os
 from typing import List
 
 from livekit import api
 from livekit.agents import function_tool
+from dotenv import load_dotenv
+import aiohttp
 
 logger = logging.getLogger(__name__)
+
+load_dotenv()
+
+BACKEND_URL = os.getenv("BACKEND_URL")
 
 
 class ToolSetup:
     """Class to handle tool setup for the voice agent."""
 
-    def __init__(self):
+    def __init__(self, room_name: str = None):
+        self.name = "ToolSetup"
+        self.livekit_url = os.getenv("LIVEKIT_URL")
+        self.livekit_api_key = os.getenv("LIVEKIT_API_KEY")
+        self.livekit_api_secret = os.getenv("LIVEKIT_API_SECRET")
+        self.room_name = room_name
 
+        if not all([self.livekit_url, self.livekit_api_key, self.livekit_api_secret]):
+            logger.warning("One or more LiveKit environment variables are not set.")
 
-    def create_rag_tool(self, description: str):
-        """Create a tool for RAG functionality."""
+    def create_end_call_tool(self):
+        """Create the end call tool."""
 
-        async def enrich_with_rag(question_for_knowledge_base: str):
-            """Query knowledge base and enrich context with relevant information."""
-            await self.ph.initialize()
-            result = await self.ph.get_document_from_pinecone(
-                question_for_knowledge_base,
-                knowledge_base_id=self.knowledge_base_id,
+        async def end_call(room_name: str):
+            """End the specified call."""
+            if not room_name:
+                logger.error("Room name not provided")
+                return "Failed: Room name not provided"
+
+            client = api.LiveKitAPI(
+                self.livekit_url, self.livekit_api_key, self.livekit_api_secret
             )
+            try:
+                await client.room.remove_participant(
+                    api.RoomParticipantIdentity(
+                        room=self.room_name,
+                        identity="user"
+                    )
+                )
+                await client.aclose()
+                return "Call ended successfully"
+            except Exception as e:
+                logger.error(f"Failed to end call: {e}")
+                return f"Failed to end call: {str(e)}"
 
-            if result:
-                return result
-            return "No relevant information found in knowledge base"
+        return function_tool(
+            end_call,
+            name="end_call",
+            description="Use this when user says bye or wants to end the call"
+        )
 
-        if self.knowledge_base_id and self.knowledge_base_description:
-            return function_tool(
-                enrich_with_rag,
-                name="enrich_with_rag",
-                description=f"Called when you need to enrich with RAG for questions about {description}. Call the function only when you need to.",
-            )
-        return None
+    def create_api_tool(self, endpoint: str, name: str, description: str):
+        """Create a generic tool to call a specific API."""
 
- 
-  
+        async def api_call():
+            try:
+                url = f"{BACKEND_URL}{endpoint}"
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(url) as response:
+                        data = await response.json()
+                        return f"{data} use this as string and dont say any thing like ## etc"
+            except Exception as e:
+                logger.error(f"Failed to fetch from {endpoint}: {e}")
+                return f"Failed to fetch data: {str(e)}"
+
+        return function_tool(
+            api_call,
+            name=name,
+            description=f"{description}"
+        )
 
     def setup_tools(self) -> List:
         """Set up all tools and return them as a list."""
-        tools = []
-
-        for api_action in self.api_actions:
-            tools.append(self.create_api_tool(api_action))
-
-        for builtin in self.builtin_functions:
-            if builtin.function_name == "end_call":
-                tools.append(self.create_end_call_tool(builtin.description))
-            if builtin.function_name == "whatsapp_message":
-                tools.append(self.create_whatsapp_message_tool(builtin.description))
-
-        if self.knowledge_base_id:
-            tools.append(self.create_rag_tool(self.knowledge_base_description))
-
-        if self.call_details.voicebot.cal:
-            tools.append(
-                self.create_booking_tool(
-                    event_type_id=self.cal_event_type_id,
-                    time_zone=self.cal_time_zone,
-                )
+        tools = [
+            self.create_end_call_tool(),
+            self.create_api_tool(
+                "/blogs/?page=1",
+                name="get_latest_blogs",
+                description="Use whenever someone asks for what are you doing use ask about blogs waht you learned etc types things"
+            ),
+            self.create_api_tool(
+                "/about/skills/",
+                name="get_skills",
+                description="Use whenever someone asks about your skills"
+            ),
+            self.create_api_tool(
+                "/about/achievements/",
+                name="get_achievements",
+                description="Use whenever someone asks about your achievements"
+            ),
+            self.create_api_tool(
+                "/about/certifications/",
+                name="get_certifications",
+                description="Use whenever someone asks about your certifications"
+            ),
+            self.create_api_tool(
+                "/about/experiences/",
+                name="get_experiences",
+                description="Use whenever someone asks about your work or project experience"
+            ),
+            self.create_api_tool(
+                "/about/projects/",
+                name="get_projects",
+                description="Use whenever someone asks about your projects"
             )
-
-            # Add available slots tool
-            tools.append(
-                self.create_available_slots_tool(
-                    api_key=self.cal_api_key,
-                    event_type_duration=self.cal_event_type_duration,
-                    timezone=self.cal_time_zone,
-                    schedule_id=self.cal_schedule_id,
-                )
-            )
+        ]
 
         logger.info(f"Tools set up: {len(tools)} tools created {tools}")
         return tools

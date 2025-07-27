@@ -23,6 +23,8 @@ node_modules/
 *.log
 *.lock
 
+google_speech.json
+
 # Ignore Next.js build files
 .next/
 
