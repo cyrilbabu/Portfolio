@@ -8,6 +8,8 @@ import json
 from bot.utils import openai_api_request
 import uuid
 from rest_framework import status
+from .models import VoiceBot
+from .serializers import VoiceBotSerializer
 
 
 load_dotenv()
@@ -68,3 +70,19 @@ def get_chat_reply(request):
             return JsonResponse({"error": str(e)}, status=500)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
+
+
+@csrf_exempt
+def increment_voicebot_view(request, voicebot_id):
+    print(f"Incrementing view for voicebot ID: {voicebot_id}")
+    try:
+        voicebot = VoiceBot.objects.get(id=voicebot_id)
+        voicebot.views += 1
+        voicebot.save()
+        return JsonResponse({"message": "View count incremented", "views": voicebot.views}, status=200)
+    except VoiceBot.DoesNotExist:
+        return JsonResponse({"error": "VoiceBot not found"}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+
+

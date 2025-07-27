@@ -5,7 +5,7 @@ import {
   useLocalParticipant,
   useMaybeRoomContext,
 } from "@livekit/components-react";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { RoomEvent } from "livekit-client";
 import Image from "next/image";
 import { IoMdMic } from "react-icons/io";
@@ -193,6 +193,17 @@ function Room({ setToken }) {
 export default function Home() {
   const [token, setToken] = useState("");
   const [url, setUrl] = useState("");
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  console.log("Base URL:", baseUrl);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetch(`${baseUrl}/bot/voicebot/1/increment/`);
+    };
+    fetchData();
+  }, [baseUrl]);
 
   return (
     <div className="p-8  h-screen bg-blue-950">
