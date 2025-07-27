@@ -4,19 +4,7 @@ import ContactMe from "./(components)/contact-me";
 import Navbar from "./(components)/Navbar";
 import "./globals.css";
 
-import Head from "next/head";
-// import { useEffect } from "react";
-
-// const generateRandomUserId = () =>
-//   Math.floor(100000 + Math.random() * 900000).toString();
-
 export default function RootLayout({ children }) {
-  // const setUserId = useUserStore((state) => state.setUserId);
-
-  // useEffect(() => {
-  //   setUserId(generateRandomUserId());
-  // }, [setUserId]);
-
   return (
     <html lang="en" className="min-h-screen w-full">
       <head>
