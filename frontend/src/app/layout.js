@@ -42,6 +42,16 @@ export default function RootLayout({ children }) {
           <ContactMe />
         </div>
       </body>
+
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-M88PN6G6G3"
+      ></script>
+      <script>
+        window.dataLayer = window.dataLayer || []; function gtag()
+        {dataLayer.push(arguments)}
+        gtag('js', new Date()); gtag('config', 'G-M88PN6G6G3');
+      </script>
     </html>
   );
 }
