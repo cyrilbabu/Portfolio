@@ -3,12 +3,11 @@ import { FaComments } from "react-icons/fa";
 import Image from "next/image";
 import AIInteraction from "./(components)/AIInteraction";
 import Somedetails from "./(components)/Somedetails";
-import { CgDatabase } from "react-icons/cg";
+import { MdRecordVoiceOver } from "react-icons/md";
 import Link from "next/link";
 import Typewrite from "./(components)/Typewriter";
 import AboutSection from "./(components)/AboutSection";
 import LatestBlog from "./(components)/latestblog";
-import CardCarousel from "./(components)/BlogeSilider";
 import YouTubePromo from "./(components)/Youtube";
 
 export default function Home() {
@@ -34,10 +33,10 @@ export default function Home() {
 
           {/* Buttons */}
           <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-            <Link href="/blogs">
+            <Link href="/voice-chat">
               <button className="bg-purple-400 hover:bg-purple-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto">
-                <CgDatabase className="text-xl" />
-                See Blogs
+                <MdRecordVoiceOver className="text-xl" />
+                Voice Chat with Me
               </button>
             </Link>
             <Link href="/chat">
