@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { FaEye, FaHeart, FaCommentDots, FaShareAlt } from "react-icons/fa";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 const LatestBlogCarousel = ({ blogs, baseUrl }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -27,7 +28,10 @@ const LatestBlogCarousel = ({ blogs, baseUrl }) => {
   const visibleCards = getVisibleCards();
 
   return (
-    <div className="w-full bg-yellow-400 py-12 pb-24 px-4">
+    <div
+      // href={`/blog/${blog.id}`}
+      className="w-full bg-yellow-400 py-12 pb-24 px-4"
+    >
       <div className="flex items-center justify-center space-x-4">
         <button
           onClick={handlePrev}
@@ -38,10 +42,13 @@ const LatestBlogCarousel = ({ blogs, baseUrl }) => {
 
         <div className="flex space-x-4 transition-all duration-300">
           {visibleCards.map((blog, idx) => (
-            <div
+            <Link
+              href={`/blog/${blog.id}`}
               key={blog.id}
               className={`bg-blue-950 text-white transition-all p-2 rounded duration-300 ${
-                idx === 1 ? "scale-115" : "opacity-60"
+                idx === 1
+                  ? "scale-115 hover:scale-120"
+                  : "opacity-60 hover:opacity-80 hover:scale-110"
               }`}
             >
               <img
@@ -84,7 +91,7 @@ const LatestBlogCarousel = ({ blogs, baseUrl }) => {
                   )}
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
