@@ -36,7 +36,7 @@ export async function generateMetadata({ params }) {
       blog.title,
       blog.subtitle,
       "Cyril Babu",
-      "Chropton Unsh",
+      "Chropton Unsh Cyril Babu",
       "Web Dev Blog",
       "React",
       "Next.js",
