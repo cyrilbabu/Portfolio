@@ -33,12 +33,14 @@ const LatestBlogCarousel = ({ blogs, baseUrl }) => {
       className="w-full bg-yellow-400 py-12 pb-24 px-4"
     >
       <div className="flex items-center justify-center space-x-4">
-        <button
-          onClick={handlePrev}
-          className="p-2 bg-white/20 border-2 border-white text-white rounded-full"
-        >
-          <ChevronLeft />
-        </button>
+        {blogs.length > 3 && (
+          <button
+            onClick={handlePrev}
+            className="p-2 bg-white/20 border-2 border-white text-white rounded-full"
+          >
+            <ChevronLeft />
+          </button>
+        )}
 
         <div className="flex space-x-4 transition-all duration-300">
           {visibleCards.map((blog, idx) => (
@@ -95,12 +97,14 @@ const LatestBlogCarousel = ({ blogs, baseUrl }) => {
           ))}
         </div>
 
-        <button
-          onClick={handleNext}
-          className="p-2 bg-white/20 border-2 border-white text-white rounded-full"
-        >
-          <ChevronRight />
-        </button>
+        {blogs.length > 3 && (
+          <button
+            onClick={handleNext}
+            className="p-2 bg-white/20 border-2 border-white text-white rounded-full"
+          >
+            <ChevronRight />
+          </button>
+        )}
       </div>
     </div>
   );
