@@ -20,6 +20,7 @@ export default function RootLayout({ children }) {
           name="keywords"
           content="Cyril Babu, Blogs, Personal Blog, Web Development"
         />
+        <meta name="robots" content="noindex"></meta>
         <meta name="author" content="Cyril Babu" />
         <meta name="theme-color" content="#131628" />
         <link rel="icon" href="/cyril.jpg" />
