@@ -11,6 +11,63 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 
+// SEO: generateMetadata for dynamic SEO tags
+export async function generateMetadata({ params }) {
+  const { id } = params;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  const res = await fetch(`${baseUrl}/blogs/${id}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    return {
+      title: "Blog Not Found | Cyril Babu",
+      description: "This blog post was not found.",
+    };
+  }
+
+  const blog = await res.json();
+
+  return {
+    title: blog.title || "Blog | Cyril Babu",
+    description: blog.subtitle || blog.description?.slice(0, 150),
+    keywords: [
+      blog.title,
+      blog.subtitle,
+      "Cyril Babu",
+      "Chropton Unsh",
+      "Web Dev Blog",
+      "React",
+      "Next.js",
+      "Coding",
+    ],
+    openGraph: {
+      title: blog.title,
+      description: blog.subtitle || blog.description,
+      url: `${baseUrl}/blog/${id}`,
+      siteName: "Cyril Babu's Blog",
+      images: [
+        {
+          url: blog.thumbnail ? `${baseUrl}/${blog.thumbnail}` : "/cyril.jpg",
+          width: 800,
+          height: 600,
+        },
+      ],
+      type: "article",
+      publishedTime: blog.created_at,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: blog.title,
+      description: blog.subtitle || blog.description,
+      images: [
+        blog.thumbnail ? `${baseUrl}/${blog.thumbnail}` : "/cyril.jpg",
+      ],
+    },
+  };
+}
+
 export default async function BlogPage({ params }) {
   const { id } = params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -36,6 +93,7 @@ export default async function BlogPage({ params }) {
           className="w-full rounded object-cover"
         />
       </div>
+
       {/* Thumbnail & Blog Header */}
       <div className="flex flex-col md:flex-row border-2 border-white rounded-lg overflow-hidden shadow-2xl bg-white/10 mt-4">
         <div className="w-full p-6 flex flex-col justify-between">
@@ -100,6 +158,7 @@ export default async function BlogPage({ params }) {
           </div>
         </div>
       </div>
+
       {/* Main Content */}
       <div className="mt-4 border-2 border-white rounded-lg p-6 bg-white/10 shadow-2xl ">
         <p className="text-gray-200 ">{blog.content}</p>
@@ -117,16 +176,18 @@ export default async function BlogPage({ params }) {
                 )}
 
                 {item.subtitle && (
-                  <p className="text-sm text-gray-300  flex items-center gap-2 py-1 mt-2">
+                  <p className="text-sm text-gray-300 flex items-center gap-2 py-1 mt-2">
                     <FaArrowRight />
                     {item.subtitle}
                   </p>
                 )}
 
                 {item.content && (
-                  <p className="text-gray-200 items-center gap-2 mt-2">
-                    <div dangerouslySetInnerHTML={{ __html: item.content }} />
-                  </p>
+                  <div className="text-gray-200 items-center gap-2 mt-2">
+                    <div
+                      dangerouslySetInnerHTML={{ __html: item.content }}
+                    />
+                  </div>
                 )}
 
                 {item.url && (
@@ -135,13 +196,14 @@ export default async function BlogPage({ params }) {
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white border-2 border-white bg-white/40 font-bold px-2 py-1 rounded hover:underline flex items-center gap-1  text-sm"
+                      className="text-white border-2 border-white bg-white/40 font-bold px-2 py-1 rounded hover:underline flex items-center gap-1 text-sm"
                     >
                       <FaExternalLinkAlt />
                       {item.url_text || "View Link"}
                     </a>
                   </div>
                 )}
+
                 {item.image && (
                   <div className="mt-4 w-full flex justify-center items-center">
                     <img
