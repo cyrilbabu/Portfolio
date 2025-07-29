@@ -1,34 +1,58 @@
-// app/layout.js
 import "./globals.css";
 import ContactMe from "./(components)/contact-me";
 import Navbar from "./(components)/Navbar";
-import Head from "next/head";
 import Script from "next/script";
 
 export const metadata = {
   title: "Cyril Babu's Blog",
-  description: "Cyril Babu's personal blog site",
+  description: "Coding blogs and dev insights by Chropton Unsh Cyril Babu.",
+  keywords: [
+    "Chropton Unsh Cyril Babu",
+    "Chropton Unsh Cyril Babu Blogs",
+    "Cyril Babu",
+    "Chropton Unsh",
+    "Web Dev Blog",
+    "Liveket Blog",
+    "Python",
+    "Django",
+    "Flask",
+    "React",
+    "Next.js",
+    "JavaScript",
+  ],
+  authors: [{ name: "Chropton Unsh Cyril Babu" }],
+  creator: "Chropton Unsh Cyril Babu",
+  robots: "index, follow",
+  themeColor: "#131628",
+  icons: {
+    icon: "/cyril.jpg",
+    apple: "/cyril.jpg",
+  },
+  manifest: "/manifest.json",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+  },
+  openGraph: {
+    title: "Cyril Babu's Blog",
+    description: "Web dev blog by Chropton Unsh Cyril Babu",
+    url: "https://chropton-unsh-cyril-babu.onemoredevs.com",
+    siteName: "Cyril Babu's Blog",
+    images: [{ url: "/cyril.jpg", width: 800, height: 600 }],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cyril Babu's Blog",
+    description: "Follow Cyril's blogs on React, Next.js, and coding projects.",
+    images: ["/cyril.jpg"],
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="min-h-screen w-full">
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Cyril Babu's personal blog site" />
-        <meta
-          name="keywords"
-          content="Cyril Babu, Blogs, Personal Blog, Web Development"
-        />
-        <meta name="robots" content="noindex"></meta>
-        <meta name="author" content="Cyril Babu" />
-        <meta name="theme-color" content="#131628" />
-        <link rel="icon" href="/cyril.jpg" />
-        <link rel="apple-touch-icon" href="/cyril.jpg" />
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-      </Head>
-
       {/* Google Analytics Script */}
       <Script
         async
