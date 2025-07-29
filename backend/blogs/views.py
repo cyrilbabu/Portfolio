@@ -74,9 +74,9 @@ class BlogCreateView(APIView):
             blog = blog_serializer.save()
 
             # Create BlogImage instances
-            images = data.getlist('images')
-            for image in images:
-                BlogImage.objects.create(blog=blog, image=image)
+            # images = data.getlist('images')
+            # for image in images:
+            #     BlogImage.objects.create(blog=blog, image=image)
 
             # Parse and create BlogContent instances
             contents = []

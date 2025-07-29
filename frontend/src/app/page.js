@@ -34,13 +34,13 @@ export default function Home() {
           {/* Buttons */}
           <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <Link href="/voice-chat">
-              <button className="bg-purple-400 hover:bg-purple-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto">
+              <button className="bg-purple-400 cursor-pointer hover:bg-purple-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto">
                 <MdRecordVoiceOver className="text-xl" />
                 Voice Chat with Me
               </button>
             </Link>
             <Link href="/chat">
-              <button className="bg-green-600  hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto">
+              <button className="bg-green-600 cursor-pointer hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto">
                 <FaComments className="text-xl" />
                 Chat with AI Me
               </button>
