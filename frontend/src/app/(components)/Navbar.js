@@ -29,14 +29,23 @@ export default function Navbar() {
         </div>
 
         {/* Center: Nav Links (Desktop) */}
-        <div className="hidden md:flex items-center gap-10 text-base lg:text-lg">
-          <Link href="/" className="hover:text-yellow-500 transition">
+        <div className="hidden md:flex items-center border-4 border-blue-950 rounded-full text-blue-950 bg-gray-300 px-10 py-2 gap-16 text-base lg:text-lg">
+          <Link
+            href="/"
+            className="hover:text-blue-900 transition border-b-2 border-transparent hover:border-blue-900"
+          >
             Home
           </Link>
-          <Link href="/blogs" className="hover:text-yellow-500 transition">
+          <Link
+            href="/blogs"
+            className="hover:text-blue-900 transition border-b-2 border-transparent hover:border-blue-900"
+          >
             Blogs
           </Link>
-          <Link href="/about" className="hover:text-yellow-500 transition">
+          <Link
+            href="/about"
+            className="hover:text-blue-900 transition border-b-2 border-transparent hover:border-blue-900"
+          >
             About
           </Link>
           {/* <a

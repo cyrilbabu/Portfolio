@@ -11,7 +11,6 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 
-// SEO: generateMetadata for dynamic SEO tags
 export async function generateMetadata({ params }) {
   const { id } = params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -61,9 +60,7 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title: blog.title,
       description: blog.subtitle || blog.description,
-      images: [
-        blog.thumbnail ? `${baseUrl}/${blog.thumbnail}` : "/cyril.jpg",
-      ],
+      images: [blog.thumbnail ? `${baseUrl}/${blog.thumbnail}` : "/cyril.jpg"],
     },
   };
 }
@@ -184,9 +181,7 @@ export default async function BlogPage({ params }) {
 
                 {item.content && (
                   <div className="text-gray-200 items-center gap-2 mt-2">
-                    <div
-                      dangerouslySetInnerHTML={{ __html: item.content }}
-                    />
+                    <div dangerouslySetInnerHTML={{ __html: item.content }} />
                   </div>
                 )}
 

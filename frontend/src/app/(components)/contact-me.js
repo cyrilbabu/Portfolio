@@ -29,7 +29,7 @@ const ContactMe = () => {
   };
 
   return (
-    <div className="w-full mx-auto py-12 px-4 sm:px-8 md:px-16 lg:px-36 text-center text-gray-800 bg-yellow-400 bg-cover bg-center">
+    <footer className="w-full mx-auto py-12 px-4 sm:px-8 md:px-16 lg:px-36 text-center text-gray-800 bg-yellow-400 bg-cover bg-center">
       <div className="text-center mb-10">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-950 drop-shadow-sm">
           Contact Me
@@ -95,7 +95,7 @@ const ContactMe = () => {
       <div className="mt-8 text-blue-950 text-sm sm:text-base">
         made with ❤️ by Chropton Unsh Cyril Babu
       </div>
-    </div>
+    </footer>
   );
 };
 
