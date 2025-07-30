@@ -132,7 +132,7 @@ const BlogCard = ({ blog, isReversed }) => {
               className="flex items-center gap-1 border rounded-lg py-1 px-3 bg-white/20 cursor-pointer"
               onClick={() => updateMetrics("likes")}
             >
-              <FaHeart /> {blog.likes}
+              <FaHeart /> {blog?.likes}
             </span>
             <span
               className="flex items-center gap-1 border rounded-lg py-1 px-3 bg-white/20 cursor-pointer"
