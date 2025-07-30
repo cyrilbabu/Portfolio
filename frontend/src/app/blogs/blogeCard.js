@@ -18,22 +18,11 @@ import axios from "axios";
 const BlogCard = ({ blog, isReversed }) => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-  const [likes, setLikes] = React.useState(blog.likes || 0);
-
   const updateMetrics = async (metric) => {
     try {
       await axios.post(`${baseUrl}/blogs/update-metrics/${blog.id}/`, {
         metrics: { [metric]: 1 },
       });
-      if (metric === "likes") {
-        setLikes((prev) => prev + 1);
-      } else if (metric === "views") {
-        blog.views += 1;
-      } else if (metric === "comments_count") {
-        blog.comments_count += 1;
-      } else if (metric === "shares") {
-        blog.shares += 1;
-      }
     } catch (error) {
       console.error("Error updating metrics:", error);
     }
