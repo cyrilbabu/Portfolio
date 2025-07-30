@@ -23,7 +23,7 @@ export default function Navbar() {
   useEffect(() => {
     const path = pathname.split("/").pop();
     const value = path.charAt(0).toUpperCase() + path.slice(1);
-    setSelected(value === "about" ? "Home" : value); // Adjusted to handle the "About" path correctly
+    setSelected(value === "About" ? "Home" : value); // Adjusted to handle the "About" path correctly
   }, [pathname]);
 
   return (
