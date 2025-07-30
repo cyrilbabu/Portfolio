@@ -18,7 +18,7 @@ import axios from "axios";
 const BlogCard = ({ blog, isReversed }) => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-  // const [likes, setLikes] = React.useState(blog.likes || 0);
+  const [likes, setLikes] = React.useState(blog.likes || 0);
 
   const updateMetrics = async (metric) => {
     try {
@@ -26,8 +26,7 @@ const BlogCard = ({ blog, isReversed }) => {
         metrics: { [metric]: 1 },
       });
       if (metric === "likes") {
-        // setLikes((prev) => prev + 1);
-        blog.likes += 1;
+        setLikes((prev) => prev + 1);
       } else if (metric === "views") {
         blog.views += 1;
       } else if (metric === "comments_count") {
@@ -144,7 +143,7 @@ const BlogCard = ({ blog, isReversed }) => {
               className="flex items-center gap-1 border rounded-lg py-1 px-3 bg-white/20 cursor-pointer"
               onClick={() => updateMetrics("likes")}
             >
-              <FaHeart /> {blog.likes}
+              <FaHeart /> {likes}
             </span>
             <span
               className="flex items-center gap-1 border rounded-lg py-1 px-3 bg-white/20 cursor-pointer"
