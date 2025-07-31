@@ -29,8 +29,14 @@ class BlogListView(APIView):
         category = request.query_params.get('category', None)
         title = request.query_params.get('title', None)
         page = request.query_params.get('page', 1)
-
-        blogs = Blog.objects.all().order_by('-created_at')
+        
+        blogs = None
+        
+        if category == "What I Doing":
+            blogs = Blog.objects.filter(category="What I Doing").order_by('-created_at')
+        else:
+            blogs = Blog.objects.exclude(category="What I Doing").order_by('-created_at')
+            
         if category:
             blogs = blogs.filter(category__icontains=category)
         if title:
