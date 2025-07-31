@@ -48,7 +48,7 @@ export default async function DailyActivity() {
                 {blog.created_at.split("T")[0]}
               </p>
             </div>
-            <h2 className="text-xl font-bold text-gray-100 mb-2 mt-4">
+            <h2 className="text-2xl font-bold text-gray-100 mb-2 mt-4">
               {blog.title}
             </h2>
             <h3 className="text-gray-300 border-l-4 border-red-500 pl-2">
