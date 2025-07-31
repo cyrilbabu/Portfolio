@@ -70,8 +70,8 @@ export default function Home() {
       {/* Additional Sections */}
       <Somedetails />
       <LatestBlog />
-      <AboutSection />
       <DailyActivity />
+      <AboutSection />
       <AIInteraction />
       <YouTubePromo />
     </div>
