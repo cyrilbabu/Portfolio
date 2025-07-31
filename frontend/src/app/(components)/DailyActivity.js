@@ -20,7 +20,7 @@ export default async function DailyActivity() {
 
   console.log("Blogs:", blogs);
   return (
-    <div className="w-full bg-blue-950 px-4 sm:px-8 md:px-16 lg:px-36">
+    <div className="w-full bg-blue-950 px-4 sm:px-8 md:px-16 lg:px-36 pb-12">
       <div className="w-full flex flex-col items-center justify-center pt-12  text-white">
         <h1 className="text-4xl font-extrabold col-span-3 mb-4">
           See My Daily Updates
