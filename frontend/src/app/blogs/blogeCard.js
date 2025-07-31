@@ -44,6 +44,8 @@ const BlogCard = ({ blog, isReversed }) => {
           src={
             blog.thumbnail
               ? `${baseUrl}/${blog.thumbnail}`
+              : blog.category === "What I Doing"
+              ? "/daily_activity.png"
               : "/placeholderbloge.png"
           }
           alt={blog.url_text || "Blog"}

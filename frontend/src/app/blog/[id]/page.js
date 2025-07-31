@@ -84,6 +84,8 @@ export default async function BlogPage({ params }) {
           src={
             blog.thumbnail
               ? `${baseUrl}/${blog.thumbnail}`
+              : blog.category === "What I Doing"
+              ? "/daily_activity.png"
               : "/placeholderbloge.png"
           }
           alt={blog.title}

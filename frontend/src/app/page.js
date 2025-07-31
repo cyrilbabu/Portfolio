@@ -9,6 +9,7 @@ import Typewrite from "./(components)/Typewriter";
 import AboutSection from "./(components)/AboutSection";
 import LatestBlog from "./(components)/latestblog";
 import YouTubePromo from "./(components)/Youtube";
+import DailyActivity from "./(components)/DailyActivity";
 
 export default function Home() {
   return (
@@ -69,6 +70,7 @@ export default function Home() {
       {/* Additional Sections */}
       <Somedetails />
       <LatestBlog />
+      <DailyActivity />
       <AIInteraction />
       <AboutSection />
       <YouTubePromo />

@@ -24,7 +24,7 @@ const LatestBlog = async () => {
         <h1 className="text-4xl font-extrabold text-blue-950 col-span-3 mb-4">
           Latest Blogs
         </h1>
-        <p className="text-blue-950 col-span-3 text-lg mb-4">
+        <p className="text-xl text-blue-950 mb-8 max-w-2xl mx-auto animate-fade-in-up animation-delay-200">
           Here are some of my latest blog posts. Click on any blog to read more.
         </p>
       </div>
