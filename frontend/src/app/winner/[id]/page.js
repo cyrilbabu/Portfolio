@@ -1,6 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import { TiWatch } from "react-icons/ti";
+import { CiCalendarDate } from "react-icons/ci";
 
 export default function WinningPage({ params }) {
   const { id } = params;
@@ -90,14 +93,35 @@ export default function WinningPage({ params }) {
           <>
             <h1 className="text-4xl font-bold mb-6">🎉 Congratulations!</h1>
             <p className="text-2xl mb-2">
-              <span className="font-semibold">{winnerData.name}</span>
+              <span className="font-semibold text-yellow-400">
+                {winnerData.name}
+              </span>
             </p>
             <p className="text-2xl mb-2">
               Won <span className="font-semibold">₹{amount}</span>
             </p>
-            <p className="text-md text-gray-300 mt-3">
-              Claimed At: {winnerData.time || winnerData.claimed_at}
+            <p className="text-md text-gray-300 mt-3 border-t pt-3 flex items-center gap-4 justify-center">
+              <span className="flex items-center gap-1">
+                <CiCalendarDate />
+                {winnerData.claimed_at.split("T")[0]}
+              </span>
+              <span className="flex items-center gap-1">
+                <TiWatch />
+                {winnerData.claimed_at.split("T")[1].split(".")[0].slice(0, 8)}
+              </span>
             </p>
+
+            <p className="text-lg my-4 text-green-500">
+              Thank you for participating! Your prize will be sent to your UPI
+              ID.
+            </p>
+
+            <Link
+              href="/"
+              className="border-2 border-white bg-white/20 py-2 px-6 w-full rounded  hover:bg-white/30 transition mt-6 text-center text-lg font-semibold"
+            >
+              Go back to home
+            </Link>
           </>
         ) : (
           <>
