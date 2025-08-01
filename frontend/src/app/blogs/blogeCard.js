@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react"; // Added useState import
 import {
   FaEye,
   FaHeart,
@@ -14,9 +15,17 @@ import {
 import BlogSpeaker from "./Pulse";
 import Link from "next/link";
 import axios from "axios";
+import CommentModal from "./(components)/CommentModal";
+import ShareModal from "./(components)/ShareModal";
 
 const BlogCard = ({ blog, isReversed }) => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  // Added state variables
+  const [showHeart, setShowHeart] = useState(false);
+  const [likes, setLikes] = useState(blog?.likes || 0);
+  const [showCommentModal, setShowCommentModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
 
   const updateMetrics = async (metric) => {
     try {
@@ -26,6 +35,14 @@ const BlogCard = ({ blog, isReversed }) => {
     } catch (error) {
       console.error("Error updating metrics:", error);
     }
+  };
+
+  // Added handleLike function
+  const handleLike = async () => {
+    setLikes(likes + 1);
+    setShowHeart(true);
+    updateMetrics("likes");
+    setTimeout(() => setShowHeart(false), 2000);
   };
 
   return (
@@ -131,26 +148,44 @@ const BlogCard = ({ blog, isReversed }) => {
 
           <div className="flex gap-3 flex-wrap">
             <span
-              className="flex items-center gap-1 border rounded-lg py-1 px-3 bg-white/20 cursor-pointer"
-              onClick={() => updateMetrics("likes")}
+              className="flex items-center gap-1 border rounded-lg py-1 px-3 bg-white/20 cursor-pointer relative"
+              onClick={handleLike}
             >
-              <FaHeart /> {blog?.likes}
+              <FaHeart /> {likes}
+              {showHeart && (
+                <FaHeart className="text-red-500 absolute -top-5 left-1/2 transform -translate-x-1/2 text-xl animate-bounce" />
+              )}
             </span>
+
             <span
               className="flex items-center gap-1 border rounded-lg py-1 px-3 bg-white/20 cursor-pointer"
-              onClick={() => updateMetrics("comments_count")}
+              onClick={() => setShowCommentModal(true)}
             >
               <FaCommentDots /> {blog.comments_count}
             </span>
             <span
               className="flex items-center gap-1 border rounded-lg py-1 px-3 bg-white/20 cursor-pointer"
-              onClick={() => updateMetrics("shares")}
+              onClick={() => {
+                updateMetrics("shares");
+                setShowShareModal(true);
+              }}
             >
               <FaShare />
             </span>
           </div>
         </div>
       </div>
+
+      {showCommentModal && (
+        <CommentModal
+          blogId={blog.id}
+          onClose={() => setShowCommentModal(false)}
+        />
+      )}
+
+      {showShareModal && (
+        <ShareModal blog={blog} onClose={() => setShowShareModal(false)} />
+      )}
     </div>
   );
 };
