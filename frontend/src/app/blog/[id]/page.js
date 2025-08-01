@@ -107,7 +107,9 @@ export default async function BlogPage({ params }) {
               </p>
             )}
 
-            <p className="text-stone-200 mb-4">{blog.description}</p>
+            <p className="text-stone-200 mb-4">
+              <div dangerouslySetInnerHTML={{ __html: blog.description }} />
+            </p>
 
             {blog.url && (
               <div className="flex items-center gap-2 text-sm text-white mb-2">
@@ -160,7 +162,9 @@ export default async function BlogPage({ params }) {
 
       {/* Main Content */}
       <div className="mt-4 border-2 border-white rounded-lg p-6 bg-white/10 shadow-2xl ">
-        <p className="text-gray-200 ">{blog.content}</p>
+        <p className="text-gray-200 ">
+          <div dangerouslySetInnerHTML={{ __html: blog.description }} />
+        </p>
       </div>
 
       {blog.contents?.length > 0 && (
