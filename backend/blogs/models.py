@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 category_choices = [
   "All",
@@ -67,3 +68,13 @@ class BlogContent(models.Model):
     def __str__(self):
         return f"Content for {self.blog.title}" 
          
+class Winner(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    name = models.CharField(max_length=100 , null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    amount = models.CharField(max_length=10, null=True, blank=True)
+    upi_id = models.CharField(max_length=100 , null=True, blank=True)
+    claimed_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Winner: {self.id} - {self.amount}"         

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Blog, BlogImage, BlogContent , BlogComment
+from .models import Blog, BlogImage, BlogContent , Winner
 
 class BlogImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,4 +25,8 @@ class BlogSerializer(serializers.ModelSerializer):
         model = Blog
         fields = "__all__"
 
-        
+class WinnerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Winner
+        fields = "__all__"

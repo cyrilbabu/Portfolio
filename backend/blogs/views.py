@@ -1,8 +1,9 @@
+from sqlite3 import Date
 from django.shortcuts import render
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Blog, BlogImage, BlogContent
+from .models import Blog, BlogImage, BlogContent, Winner
 from .serializers import BlogSerializer, BlogSerializerforOne
 from rest_framework import status
 from django.core.paginator import Paginator
@@ -127,3 +128,53 @@ class BlogUpdateMetricsView(APIView):
         blog.save()
 
         return Response({"message": "Metrics updated successfully"}, status=status.HTTP_200_OK)
+
+
+class UpdateWinnerView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        data = request.data
+
+        # Check if required fields are present
+        if not all([data.get("name"), data.get("email"), data.get("upi_id")]):
+            return Response({"error": "Please fill the form with name, email, and upi_id."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create or update the Winner instance
+        from datetime import datetime
+        claimed_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        winner, created = Winner.objects.update_or_create(
+            id=data.get("id"),
+            defaults={
+                "name": data.get("name"),
+                "email": data.get("email"),
+                "upi_id": data.get("upi_id"),
+                "claimed_at": claimed_at
+            }
+        )
+
+        if created:
+            return Response({"message": "Winner created successfully", "winner_id": winner.id}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({"message": "Winner updated successfully"}, status=status.HTTP_200_OK)
+
+
+class CheckWinnerView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, pk):
+        try:
+            winner = Winner.objects.get(pk=pk)
+        except Winner.DoesNotExist:
+            return Response({"error": "Winner not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Check if required fields are present
+        if all([winner.name, winner.email, winner.upi_id]):
+            return Response({
+                "claimed": True,
+                "name": winner.name,
+                "claimed_at": winner.claimed_at,
+                "amount": winner.amount 
+            }, status=status.HTTP_200_OK)
+        else:
+            return Response({"claimed": False, "amount": winner.amount}, status=status.HTTP_200_OK)
