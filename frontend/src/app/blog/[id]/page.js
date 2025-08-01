@@ -163,7 +163,7 @@ export default async function BlogPage({ params }) {
       {/* Main Content */}
       <div className="mt-4 border-2 border-white rounded-lg p-6 bg-white/10 shadow-2xl ">
         <p className="text-gray-200 ">
-          <div dangerouslySetInnerHTML={{ __html: blog.description }} />
+          <div dangerouslySetInnerHTML={{ __html: blog.content }} />
         </p>
       </div>
 

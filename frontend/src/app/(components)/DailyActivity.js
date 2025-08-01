@@ -54,7 +54,9 @@ export default async function DailyActivity() {
             <h3 className="text-gray-300 border-l-4 border-red-500 pl-2">
               {blog.subtitle}
             </h3>
-            <p className="text-gray-200 my-2">{blog.content}</p>
+            <p className="text-gray-200 my-2">
+              <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+            </p>
           </Link>
         ))}
       </div>
