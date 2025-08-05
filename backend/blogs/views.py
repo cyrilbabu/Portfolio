@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 from rest_framework.permissions import AllowAny
 import os
 from dotenv import load_dotenv
+from django.db.models import Sum
 
 
 load_dotenv()
@@ -149,6 +150,7 @@ class UpdateWinnerView(APIView):
                 "name": data.get("name"),
                 "email": data.get("email"),
                 "upi_id": data.get("upi_id"),
+                "is_claimed": True,
                 "claimed_at": claimed_at
             }
         )
@@ -169,12 +171,35 @@ class CheckWinnerView(APIView):
             return Response({"error": "Winner not found."}, status=status.HTTP_404_NOT_FOUND)
 
         # Check if required fields are present
-        if all([winner.name, winner.email, winner.upi_id]):
+        if all([winner.name, winner.email, winner.upi_id, winner.is_claimed == True]):
             return Response({
-                "claimed": True,
+                "claimed": winner.is_claimed,
                 "name": winner.name,
                 "claimed_at": winner.claimed_at,
                 "amount": winner.amount 
             }, status=status.HTTP_200_OK)
         else:
-            return Response({"claimed": False, "amount": winner.amount}, status=status.HTTP_200_OK)
+            return Response({"claimed": winner.is_claimed, "amount": winner.amount}, status=status.HTTP_200_OK)
+        
+
+class GetPriceDataView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        winners = Winner.objects.all()
+        claimed_price = winners.filter(is_claimed=True)
+        unclaimed_price = winners.filter(is_claimed=False)
+
+        total_claimed_amount = claimed_price.aggregate(total_amount=Sum('amount'))['total_amount']
+        total_unclaimed_amount = unclaimed_price.aggregate(total_amount=Sum('amount'))['total_amount']
+        highest_unclaimed_amount = unclaimed_price.order_by('-amount').first()
+        highest_amount = winners.order_by('-amount').first()
+
+        return Response({
+            "claimed_price_count": claimed_price.count(),
+            "highest_unclaimed_amount": highest_unclaimed_amount.amount if highest_unclaimed_amount else 0,
+            "highest_amount": highest_amount.amount if highest_amount else 0,
+            "unclaimed_price_count": unclaimed_price.count(),
+            "total_claimed_amount": total_claimed_amount,
+            "total_unclaimed_amount": total_unclaimed_amount,
+        }, status=status.HTTP_200_OK)

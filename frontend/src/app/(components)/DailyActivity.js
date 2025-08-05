@@ -60,6 +60,14 @@ export default async function DailyActivity() {
           </Link>
         ))}
       </div>
+      <div className="w-full flex justify-center items-center mb-12 mt-4">
+        <Link
+          href="/blogs"
+          className="bg-white/80 text-blue-950 border w-full text-center border-white  text-lg font-semibold py-3 px-32 rounded shadow-lg transition duration-300"
+        >
+          See All My Daily Updates
+        </Link>
+      </div>
     </div>
   );
 }

@@ -74,6 +74,8 @@ class Winner(models.Model):
     email = models.EmailField(null=True, blank=True)
     amount = models.CharField(max_length=10, null=True, blank=True)
     upi_id = models.CharField(max_length=100 , null=True, blank=True)
+    is_claimed = models.BooleanField(default=False)
+    is_paid = models.BooleanField(default=False)
     claimed_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
