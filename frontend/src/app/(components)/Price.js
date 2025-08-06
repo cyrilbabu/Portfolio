@@ -26,7 +26,8 @@ const Price = async () => {
         </h1>
 
         <p className="text-xl text-blue-950 mb-8">
-          Here's the current prize pool. If you're talented, claim your prize now!
+          Here&apos;s the current prize pool. If you&apos;re talented, claim
+          your prize now!
         </p>
 
         {/* Total Unclaimed Amount on Top */}
