@@ -1,15 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { TiWatch } from "react-icons/ti";
 import { CiCalendarDate } from "react-icons/ci";
 
 export default function WinningPage({ params }) {
   const { id } = params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const [isClaimed, setIsClaimed] = useState(false);
 
+  const [isClaimed, setIsClaimed] = useState(false);
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,31 +17,36 @@ export default function WinningPage({ params }) {
   const [winnerData, setWinnerData] = useState(null);
   const [amount, setAmount] = useState("");
 
-  // Fetch winner details on component mount
-  useEffect(() => {
-    const fetchWinner = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(`${baseUrl}/blogs/check-winner/${id}/`);
-        if (response.ok) {
-          const data = await response.json();
-          if (data.claimed) {
-            setWinnerData(data);
-            setAmount(data.amount);
-            setIsClaimed(true);
-          } else {
-            setAmount(data.amount);
-          }
+  const fetchWinner = useCallback(async () => {
+    if (!baseUrl) {
+      console.error("Base URL is not defined");
+      return;
+    }
+    try {
+      setLoading(true);
+      const response = await fetch(`${baseUrl}/blogs/check-winner/${id}/`);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.claimed) {
+          setWinnerData(data);
+          setAmount(data.amount);
+          setIsClaimed(true);
+        } else {
+          setAmount(data.amount);
         }
-      } catch (error) {
-        console.error("Error fetching winner details:", error);
-      } finally {
-        setLoading(false);
+      } else {
+        console.error("Failed to fetch winner details");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching winner details:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [baseUrl, id]);
 
+  useEffect(() => {
     fetchWinner();
-  }, [id, baseUrl]);
+  }, [fetchWinner]);
 
   const handleClaim = async () => {
     if (name.trim() === "" || email.trim() === "" || upi.trim() === "") return;
@@ -61,13 +66,7 @@ export default function WinningPage({ params }) {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        const newClaim = {
-          name,
-          time: new Date().toLocaleString(),
-        };
-        setWinnerData(newClaim);
-        setIsClaimed(true);
+        await fetchWinner(); // ✅ Call function correctly
       } else {
         const errorData = await response.json();
         console.error("Error claiming prize:", errorData.error);
@@ -79,7 +78,7 @@ export default function WinningPage({ params }) {
 
   if (loading) {
     return (
-      <div className=" bg-blue-950 h-screen text-white animate-fade-in flex justify-center items-center">
+      <div className="bg-blue-950 h-screen text-white animate-fade-in flex justify-center items-center">
         Loading...
       </div>
     );
@@ -117,7 +116,7 @@ export default function WinningPage({ params }) {
 
             <Link
               href="/"
-              className="border-2 border-white bg-white/20 py-2 px-6 w-full rounded  hover:bg-white/30 transition mt-6 text-center text-lg font-semibold"
+              className="border-2 border-white bg-white/20 py-2 px-6 w-full rounded hover:bg-white/30 transition mt-6 text-center text-lg font-semibold"
             >
               Go back to home
             </Link>
