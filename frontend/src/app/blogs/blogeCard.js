@@ -106,7 +106,11 @@ const BlogCard = ({ blog, isReversed }) => {
           </div>
 
           <p className="text-stone-200 text-sm sm:text-base mb-4 leading-relaxed">
-            <div dangerouslySetInnerHTML={{ __html: blog.description }} />
+            {blog.category === "What I Doing" ? (
+              <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+            ) : (
+              <div dangerouslySetInnerHTML={{ __html: blog.description }} />
+            )}
           </p>
 
           <div className="flex flex-wrap items-center text-gray-50 text-sm sm:text-base gap-6 mb-4">
