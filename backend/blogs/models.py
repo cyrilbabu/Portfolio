@@ -16,7 +16,7 @@ class Blog(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
     subtitle = models.CharField(max_length=200, null=True, blank=True)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     content = models.TextField()
     
     thumbnail = models.ImageField(upload_to='blog_thumbnails/', null=True, blank=True)

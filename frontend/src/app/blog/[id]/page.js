@@ -108,7 +108,11 @@ export default async function BlogPage({ params }) {
             )}
 
             <p className="text-stone-200 mb-4">
-              <div dangerouslySetInnerHTML={{ __html: blog.description }} />
+              {blog.category === "What I Doing" ? (
+                <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+              ) : (
+                <div dangerouslySetInnerHTML={{ __html: blog.description }} />
+              )}
             </p>
 
             {blog.url && (
@@ -150,6 +154,7 @@ export default async function BlogPage({ params }) {
               </span>
               <span className="flex items-center gap-1 bg-white/20 px-2 py-1 rounded">
                 <FaCommentDots />
+
                 {blog.comments_count}
               </span>
               <span className="flex items-center gap-1 bg-white/20 px-2 py-1 rounded">
@@ -161,11 +166,13 @@ export default async function BlogPage({ params }) {
       </div>
 
       {/* Main Content */}
-      <div className="mt-4 border-2 border-white rounded-lg p-6 bg-white/10 shadow-2xl ">
-        <p className="text-gray-200 ">
-          <div dangerouslySetInnerHTML={{ __html: blog.content }} />
-        </p>
-      </div>
+      {blog.category !== "What I Doing" && (
+        <div className="mt-4 border-2 border-white rounded-lg p-6 bg-white/10 shadow-2xl ">
+          <p className="text-gray-200 ">
+            <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+          </p>
+        </div>
+      )}
 
       {blog.contents?.length > 0 && (
         <div className="">
