@@ -22,12 +22,11 @@ const Price = async () => {
       <div className="max-w-4xl mx-auto text-center">
         {/* Title */}
         <h1 className="text-4xl font-extrabold text-blue-950 mb-4">
-          Latest Price Details
+          Current Prize Pool
         </h1>
 
         <p className="text-xl text-blue-950 mb-8">
-          Here&apos;s the current prize pool. If you&apos;re eligible, claim
-          your prize now!
+          Here's the current prize pool. If you're talented, claim your prize now!
         </p>
 
         {/* Total Unclaimed Amount on Top */}
@@ -36,7 +35,7 @@ const Price = async () => {
             🪙 Total Unclaimed Amount
           </h2>
           <p className="text-5xl font-extrabold text-yellow-600">
-            ₹{prices.total_unclaimed_amount}
+            ₹{prices.total_unclaimed_amount || 0}
           </p>
         </div>
 
@@ -44,15 +43,15 @@ const Price = async () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
           <StatCard
             label="Unclaimed Price Count"
-            value={prices.unclaimed_price_count}
+            value={prices.unclaimed_price_count || 0}
           />
           <StatCard
             label="Highest Amount Yet to Claim"
-            value={`₹${prices.highest_amount}`}
+            value={`₹${prices.highest_amount || 0}`}
           />
           <StatCard
             label="Claimed Price Count"
-            value={prices.claimed_price_count}
+            value={prices.claimed_price_count || 0}
           />
           <StatCard
             label="Total Claimed Amount"

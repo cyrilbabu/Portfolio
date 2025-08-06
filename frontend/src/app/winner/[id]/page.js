@@ -68,7 +68,6 @@ export default function WinningPage({ params }) {
         };
         setWinnerData(newClaim);
         setIsClaimed(true);
-        console.log(data.message);
       } else {
         const errorData = await response.json();
         console.error("Error claiming prize:", errorData.error);
