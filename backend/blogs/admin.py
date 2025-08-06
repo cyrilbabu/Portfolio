@@ -3,7 +3,7 @@ from .models import Blog , BlogImage, BlogComment, BlogContent, Winner
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_at')
+    list_display = ('title','category', 'created_at')
     search_fields = ('title',) 
 
 @admin.register(BlogImage)
