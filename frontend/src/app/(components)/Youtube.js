@@ -11,20 +11,24 @@ export default function YouTubeSection() {
             <FaYoutube className="text-red-600 animate-pulse text-5xl" />
             Subscribe to My YouTube Channel
           </h2>
+
+          <h2 className="text-2xl border-l-4 border-red-500 pl-4 font-bold flex items-center gap-3">
+            Chropton Explores
+          </h2>
+
           <p className="text-lg text-blue-200">
-            current work in progress. Stay tuned for exciting content,
-            tutorials, and insights into my projects and experiences. Your
-            support means a lot!
+            Join me on my YouTube journey where I explore the world of
+            technology, gaming, and more! Your support means a lot, and
+            subscribing helps me create more content for you.
           </p>
-          <div
-            // href="https://www.youtube.com/@YourChannelHandle" // Replace with actual channel URL
-            // target="_blank"
-            // rel="noopener noreferrer"
-            disabled
-            className="inline-block mt-4 bg-gray-600 hover:bg-gray-700 transition px-6 py-3 rounded-lg text-white font-semibold text-lg cursor-not-allowed"
+          <a
+            href="https://www.youtube.com/@ChroptonExplores" // Replace with actual channel URL
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mt-4 bg-blue-500 hover:bg-blue-700 transition px-6 py-3 rounded-lg text-white font-semibold text-lg"
           >
             👉 Visit My Channel
-          </div>
+          </a>
         </div>
 
         {/* Right Image or Thumbnail */}

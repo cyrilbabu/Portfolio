@@ -72,11 +72,11 @@ const ContactMe = () => {
             },
             {
               icon: <FaInstagram />,
-              href: "https://instagram.com",
+              href: "https://www.instagram.com/cyril.babu?igsh=cnBtZjhuYjlsMWpm",
             },
             {
               icon: <FaYoutube />,
-              href: "https://youtube.com",
+              href: "https://www.youtube.com/@ChroptonExplores",
             },
           ].map((item, idx) => (
             <a

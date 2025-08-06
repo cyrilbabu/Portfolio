@@ -25,8 +25,8 @@ export const metadata = {
   robots: "index, follow",
   themeColor: "#131628",
   icons: {
-    icon: "/cyril.jpg",
-    apple: "/cyril.jpg",
+    icon: "/cyril-removebg.png",
+    apple: "/cyril-removebg.png",
   },
   manifest: "/manifest.json",
   viewport: {
@@ -46,7 +46,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Cyril Babu's Blog",
     description: "Follow Cyril's blogs on React, Next.js, and coding projects.",
-    images: ["/cyril.jpg"],
+    images: ["/cyril-removebg.png"],
   },
 };
 
